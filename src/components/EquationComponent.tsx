@@ -8,7 +8,7 @@ interface Props {
 
 const EquationComponent = ({equation}: Props) => {
   return (
-    <>
+    <div className='equation'>
       <div className='left'>
         {equation.left.map((variable, index) => (
           <VariableContainer
@@ -30,7 +30,7 @@ const EquationComponent = ({equation}: Props) => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

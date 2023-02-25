@@ -2,6 +2,8 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  margin: 0;
+  overflow: hidden;
 }
 
 .variable, .operator {
@@ -29,6 +31,12 @@ body {
 .workspace {
   width: 100vw;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.equation {
   display: grid;
   grid-template-columns: 1fr 100px 1fr;
   align-items: center;
