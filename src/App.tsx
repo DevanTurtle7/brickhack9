@@ -3,13 +3,17 @@ import EquationComponent from './components/EquationComponent';
 import Toolbar from './components/Toolbar';
 import Equation from './model/Equation';
 import Variable from './model/Variable';
+import Element from './model/Element';
 
 import './styles/index.css';
+import Constant from './model/Constant';
 
 function App() {
-  const x = new Variable('x', true);
-  const six = new Variable('number', true, 6);
-  const three = new Variable('number', false, 3);
+  const xVar = new Variable('x');
+  const x = new Element(1, true, [xVar]);
+
+  const six = new Element(6, true);
+  const three = new Element(3, false);
 
   const left = [x, six];
   const right = [three];

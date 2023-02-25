@@ -1,12 +1,13 @@
-import Variable from './Variable';
+import Constant from './Constant';
+import Element from './Element';
 
 class Equation {
-  left: Variable[];
-  right: Variable[];
+  left: Element[];
+  right: Element[];
   prevState: Equation | null;
   nextState: Equation | null;
 
-  constructor(left: Variable[], right: Variable[]) {
+  constructor(left: Element[], right: Element[]) {
     this.left = left;
     this.right = right;
     this.prevState = null;
@@ -17,11 +18,11 @@ class Equation {
     const newEquation = this.getNextEquation();
 
     const equation = left ? newEquation.left : newEquation.right;
-    const variable = equation.splice(from, 1)[0];
-    equation.splice(to, 0, variable);
+    const element = equation.splice(from, 1)[0];
+    equation.splice(to, 0, element);
 
     if (equation.length === 0) {
-      equation.push(new Variable('number', true, 0));
+      equation.push(new Element(0, true));
     }
 
     return newEquation;
@@ -32,16 +33,16 @@ class Equation {
 
     const fromEquation = fromLeft ? newEquation.left : newEquation.right;
     const toEquation = fromLeft ? newEquation.right : newEquation.left;
-    const variable = fromEquation.splice(fromIndex, 1)[0];
+    const element = fromEquation.splice(fromIndex, 1)[0];
 
     if (fromEquation.length === 0) {
-      fromEquation.push(new Variable('number', true, 0));
+      fromEquation.push(new Element(0, true));
     }
 
     // Change positivity when moving sides
-    variable.positive = !variable.positive;
+    element.positive = !element.positive;
 
-    toEquation.splice(toEquation.length, 0, variable);
+    toEquation.splice(toEquation.length, 0, element);
 
     return newEquation;
   }
@@ -50,12 +51,12 @@ class Equation {
     const newEquation = this.getNextEquation();
 
     const equation = left ? newEquation.left : newEquation.right;
-    const variable1 = equation[index1];
-    const variable2 = equation.splice(index2, 1)[0];
+    const element1 = equation[index1];
+    const element2 = equation.splice(index2, 1)[0];
 
-    if (variable1.type === variable2) {
+    if (!element1.equalsType(element2)) {
       throw new Error(
-        `Cannot combine terms. Type ${variable1.type} does not match ${variable2.type}`
+        `Cannot combine terms. Type ${element1.variables} does not match ${element2.variables}`
       );
     }
 
@@ -63,26 +64,21 @@ class Equation {
       throw new Error('Combination indices must be different');
     }
 
-    // TODO: Remove after multiplication is added
-    if (variable1.value === undefined || variable2.value === undefined) {
-      throw new Error('Cannot combine variables with undefined values');
-    }
-
-    // TODO: Update to work with variables (example: x+x)
-    variable1.value += variable2.value;
+    // TODO: Update to work with elements (example: x+x)
+    element1.constant.value += element2.constant.value;
 
     return newEquation;
   }
 
-  private getEquationStr = (equation: Variable[]) =>
-    equation.reduce((acc: string, variable: Variable, index: number) => {
+  private getEquationStr = (equation: Element[]) =>
+    equation.reduce((acc: string, element: Element, index: number) => {
       const first = index === 0;
 
       if (!first) {
-        acc += ` ${variable.positive ? '+' : '-'} `;
+        acc += ` ${element.positive ? '+' : '-'} `;
       }
 
-      acc += variable.type === 'number' ? variable.value : variable.type;
+      acc += element.getString();
 
       return acc;
     }, '');
@@ -95,8 +91,8 @@ class Equation {
 
   clone() {
     const equationClone = new Equation(
-      this.left.map((variable) => variable.clone()),
-      this.right.map((variable) => variable.clone())
+      this.left.map((element) => element.clone()),
+      this.right.map((element) => element.clone())
     );
 
     equationClone.nextState = this.nextState;
