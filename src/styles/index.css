@@ -6,17 +6,36 @@ body {
   overflow: hidden;
 }
 
-.variable, .operator {
+.variable,
+.operator {
   width: fit-content;
   font-size: 64px;
 }
 
-.left .variable, .left .operator {
+.left .variable,
+.left .operator {
   float: right;
 }
 
-.right .variable, .right .operator {
+.right .variable,
+.right .operator {
   float: left;
+}
+
+.variable.dragging {
+  color: blue;
+}
+
+.variable.drop-zone.can-drop {
+  color: yellow;
+}
+
+.drop-zone:not(.can-drop) {
+  visibility: hidden;
+}
+
+.variable.drop-zone.is-over {
+  color: green;
 }
 
 .operator {
@@ -62,5 +81,5 @@ body {
 }
 
 .icon-button-disabled {
-  color: rgb(202, 202, 202)
+  color: rgb(202, 202, 202);
 }
