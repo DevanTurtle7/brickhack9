@@ -10,6 +10,10 @@ class Variable {
       this.value = value;
     }
   }
+
+  clone() {
+    return new Variable(this.type, this.positive, this.value);
+  }
 }
 
 export default Variable;

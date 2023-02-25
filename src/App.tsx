@@ -20,6 +20,12 @@ function App() {
   equation.moveVariableFromSide(1, true);
   equation.printEquation();
 
+  console.log('Equation history:');
+  equation.history.forEach((history) => {
+    history.printEquation();
+  });
+  equation.printEquation();
+
   return (
     <div className='App'>
       <Toolbar />
