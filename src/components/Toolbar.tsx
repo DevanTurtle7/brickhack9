@@ -1,4 +1,3 @@
-import {Button, Modal} from '@mui/material';
 import {useState} from 'react';
 import {MdUndo, MdRedo, MdHistory} from 'react-icons/md';
 import Equation from '../model/Equation';
