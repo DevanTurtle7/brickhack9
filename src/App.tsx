@@ -72,6 +72,7 @@ function App() {
         onRedo={redo}
         canUndo={!!equation.prevState}
         canRedo={!!equation.nextState}
+        equation={equation}
       />
       <div className='workspace'>
         <EquationComponent equation={equation} />

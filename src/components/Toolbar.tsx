@@ -1,29 +1,55 @@
+import {Button, Modal} from '@mui/material';
+import {useState} from 'react';
 import {MdUndo, MdRedo, MdHistory} from 'react-icons/md';
+import Equation from '../model/Equation';
+import HistoryModal from './HistoryModal';
 
 interface Props {
   onUndo: () => void;
   onRedo: () => void;
   canUndo: boolean;
   canRedo: boolean;
+  equation: Equation;
 }
 
-const Toolbar = ({onUndo, onRedo, canUndo, canRedo}: Props) => {
+const Toolbar = ({onUndo, onRedo, canUndo, canRedo, equation}: Props) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
-    <div className='toolbar'>
-      <MdUndo
-        onClick={onUndo}
-        className={`icon-button icon-button-${
-          canUndo ? 'enabled' : 'disabled'
-        }`}
+    <>
+      <HistoryModal
+        modalOpen={modalOpen}
+        onCloseModal={closeModal}
+        equation={equation}
       />
-      <MdHistory className='icon-button' />
-      <MdRedo
-        onClick={onRedo}
-        className={`icon-button icon-button-${
-          canRedo ? 'enabled' : 'disabled'
-        }`}
-      />
-    </div>
+
+      <div className='toolbar'>
+        <MdUndo
+          onClick={onUndo}
+          className={`icon-button icon-button-${
+            canUndo ? 'enabled' : 'disabled'
+          }`}
+        />
+        <MdHistory
+          onClick={openModal}
+          className='icon-button icon-button-enabled'
+        />
+        <MdRedo
+          onClick={onRedo}
+          className={`icon-button icon-button-${
+            canRedo ? 'enabled' : 'disabled'
+          }`}
+        />
+      </div>
+    </>
   );
 };
 

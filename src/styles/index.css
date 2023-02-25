@@ -64,3 +64,30 @@ body {
 .icon-button-disabled {
   color: rgb(202, 202, 202)
 }
+
+.history-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: white;
+  box-shadow: 24px;
+  padding: 14px;
+  border-radius: 8px;
+}
+
+.history-modal .content {
+  display: flex;
+  flex-flow: column;
+}
+
+.history-modal .content h2 {
+  margin-top: 0px;
+}
+
+.history-modal .footer {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+}
