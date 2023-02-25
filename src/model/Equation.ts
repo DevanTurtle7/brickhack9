@@ -38,6 +38,14 @@ class Equation {
       fromEquation.push(new Element(0, true));
     }
 
+    if (
+      toEquation.length === 1 &&
+      toEquation[0].isNumber() &&
+      toEquation[0].constant.value === 0
+    ) {
+      toEquation.splice(0, 1);
+    }
+
     // Change positivity when moving sides
     element.positive = !element.positive;
 
