@@ -4,10 +4,15 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.equation {
+.equation, .left, .right {
   display: flex;
   flex-flow: row;
 }
+
+.equation {
+  justify-content: center;
+}
+
 
 .variable, .operator {
   width: fit-content;
