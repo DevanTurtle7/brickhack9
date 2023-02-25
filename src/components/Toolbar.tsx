@@ -1,4 +1,4 @@
-import {MdUndo, MdRedo, MdHistory} from 'react-icons/md';
+import { MdUndo, MdRedo, MdHistory } from 'react-icons/md';
 
 interface Props {
   onUndo: () => void;
@@ -7,16 +7,16 @@ interface Props {
   canRedo: boolean;
 }
 
-const Toolbar = ({onUndo, onRedo, canUndo, canRedo}: Props) => {
+const Toolbar = ({ onUndo, onRedo, canUndo, canRedo }: Props) => {
   return (
-    <div className='toolbar'>
+    <div className="toolbar">
       <MdUndo
         onClick={onUndo}
         className={`icon-button icon-button-${
           canUndo ? 'enabled' : 'disabled'
         }`}
       />
-      <MdHistory className='icon-button' />
+      <MdHistory className="icon-button" />
       <MdRedo
         onClick={onRedo}
         className={`icon-button icon-button-${

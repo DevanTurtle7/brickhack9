@@ -1,3 +1,10 @@
+import { Side } from './Equation';
+
+export interface VariableItem {
+  index: number;
+  side: Side;
+}
+
 class Variable {
   type: any;
 
