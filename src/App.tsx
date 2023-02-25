@@ -9,7 +9,7 @@ import './styles/index.css';
 function App() {
   const x = new Variable('x', true);
   const six = new Variable('number', true, 6);
-  const three = new Variable('number', true, 3);
+  const three = new Variable('number', false, 3);
 
   const left = [x, six];
   const right = [three];
