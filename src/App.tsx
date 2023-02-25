@@ -1,4 +1,5 @@
 import React from 'react';
+import EquationComponent from './components/EquationComponent';
 import Equation from './model/Equation';
 import Variable from './model/Variable';
 
@@ -18,7 +19,7 @@ function App() {
 
   return (
     <div className='App'>
-      <h1>BRICKHACK!</h1>
+      <EquationComponent equation={equation} />
     </div>
   );
 }
