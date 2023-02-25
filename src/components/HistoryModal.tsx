@@ -1,4 +1,4 @@
-import {Button, Modal} from '@mui/material';
+import { Button, Modal } from '@mui/material';
 import Equation from '../model/Equation';
 import HistoryItem from './HistoryItem';
 
@@ -8,9 +8,15 @@ interface Props {
   equation: Equation;
 }
 
-const HistoryModal = ({modalOpen, onCloseModal, equation}: Props) => {
+const HistoryModal = ({ modalOpen, onCloseModal, equation }: Props) => {
   const getHistoryItems = () => {
     let current = equation;
+
+    // Go to most recent state
+    while (current.nextState !== null) {
+      current = current.nextState;
+    }
+
     const items = [<HistoryItem equation={current} />];
 
     while (current.prevState !== null) {
@@ -23,13 +29,13 @@ const HistoryModal = ({modalOpen, onCloseModal, equation}: Props) => {
 
   return (
     <Modal open={modalOpen} disableAutoFocus={true}>
-      <div className='history-modal'>
-        <div className='content'>
+      <div className="history-modal">
+        <div className="content">
           <h2>History</h2>
           {getHistoryItems()}
         </div>
-        <div className='footer'>
-          <Button variant='contained' onClick={onCloseModal}>
+        <div className="footer">
+          <Button variant="contained" onClick={onCloseModal}>
             Done
           </Button>
         </div>

@@ -115,6 +115,7 @@ class Equation {
   private getNextEquation() {
     const newEquation = this.clone();
     newEquation.prevState = this;
+    newEquation.nextState = null;
     this.nextState = newEquation;
 
     return newEquation;
