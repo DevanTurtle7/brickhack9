@@ -1,5 +1,4 @@
 import Element from '../model/Element';
-import Variable from '../model/Variable';
 import Operator from './Operator';
 import VariableComponent from './VariableComponent';
 

@@ -1,6 +1,5 @@
 import Equation from '../model/Equation';
 import Operator from './Operator';
-import VariableContainer from './ElementContainer';
 import ElementContainer from './ElementContainer';
 
 interface Props {

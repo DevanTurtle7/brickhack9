@@ -6,16 +6,17 @@ import Variable from './model/Variable';
 import Element from './model/Element';
 
 import './styles/index.css';
-import Constant from './model/Constant';
 
 function App() {
   const xVar = new Variable('x');
   const x = new Element(1, true, [xVar]);
+  const xVar2 = new Variable('x');
+  const x2 = new Element(2, true, [xVar2]);
 
   const six = new Element(6, true);
   const three = new Element(3, false);
 
-  const left = [x, six];
+  const left = [x, x2, six];
   const right = [three];
 
   const [equation, setEquation] = useState(new Equation(left, right));
@@ -24,13 +25,13 @@ function App() {
   useEffect(() => {
     console.log('Moving 6 left to right');
     if (count === 0) {
-      setEquation(equation.moveVariableFromSide(1, true));
+      setEquation(equation.moveVariableFromSide(2, true));
       setCount(1);
     } else if (count === 1) {
       setEquation(equation.combine(0, 1, false));
       setCount(2);
     } else if (count === 2) {
-      setEquation(equation.moveVariableFromSide(0, true));
+      setEquation(equation.combine(0, 1, true));
       setCount(3);
     }
   }, [count, setCount]);

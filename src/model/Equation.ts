@@ -1,4 +1,3 @@
-import Constant from './Constant';
 import Element from './Element';
 
 class Equation {
@@ -64,7 +63,6 @@ class Equation {
       throw new Error('Combination indices must be different');
     }
 
-    // TODO: Update to work with elements (example: x+x)
     element1.constant.value += element2.constant.value;
 
     return newEquation;
