@@ -6,7 +6,7 @@ class Variable {
   constructor(type: any, positive: boolean, value?: number) {
     this.type = type;
     this.positive = positive;
-    if (value) {
+    if (value !== undefined) {
       this.value = value;
     }
   }

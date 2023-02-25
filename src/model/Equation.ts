@@ -20,6 +20,10 @@ class Equation {
     const variable = equation.splice(from, 1)[0];
     equation.splice(to, 0, variable);
 
+    if (equation.length === 0) {
+      equation.push(new Variable('number', true, 0));
+    }
+
     return newEquation;
   }
 
@@ -29,7 +33,10 @@ class Equation {
     const fromEquation = fromLeft ? newEquation.left : newEquation.right;
     const toEquation = fromLeft ? newEquation.right : newEquation.left;
     const variable = fromEquation.splice(fromIndex, 1)[0];
-    console.log(variable);
+
+    if (fromEquation.length === 0) {
+      fromEquation.push(new Variable('number', true, 0));
+    }
 
     // Change positivity when moving sides
     variable.positive = !variable.positive;

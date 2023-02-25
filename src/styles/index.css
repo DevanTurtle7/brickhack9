@@ -40,11 +40,11 @@ body {
   font-size: 24px;
   margin-left: 6px;
   margin-right: 6px;
-  cursor: pointer;
 }
 
 .icon-button-enabled {
-  color: black
+  color: black;
+  cursor: pointer;
 }
 
 .icon-button-disabled {

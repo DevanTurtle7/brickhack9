@@ -15,11 +15,18 @@ function App() {
   const right = [three];
 
   const [equation, setEquation] = useState(new Equation(left, right));
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     console.log('Moving 6 left to right');
-    setEquation(equation.moveVariableFromSide(1, true));
-  }, []);
+    if (count === 0) {
+      setEquation(equation.moveVariableFromSide(1, true));
+      setCount(1);
+    } else if (count === 1) {
+      setEquation(equation.moveVariableFromSide(0, true));
+      setCount(2);
+    }
+  }, [count, setCount]);
 
   const printHistory = () => {
     console.log('Equation history:');
