@@ -46,6 +46,34 @@ class Equation {
     return newEquation;
   }
 
+  combine(index1: number, index2: number, left: boolean) {
+    const newEquation = this.getNextEquation();
+
+    const equation = left ? newEquation.left : newEquation.right;
+    const variable1 = equation[index1];
+    const variable2 = equation.splice(index2, 1)[0];
+
+    if (variable1.type === variable2) {
+      throw new Error(
+        `Cannot combine terms. Type ${variable1.type} does not match ${variable2.type}`
+      );
+    }
+
+    if (index1 === index2) {
+      throw new Error('Combination indices must be different');
+    }
+
+    // TODO: Remove after multiplication is added
+    if (variable1.value === undefined || variable2.value === undefined) {
+      throw new Error('Cannot combine variables with undefined values');
+    }
+
+    // TODO: Update to work with variables (example: x+x)
+    variable1.value += variable2.value;
+
+    return newEquation;
+  }
+
   private getEquationStr = (equation: Variable[]) =>
     equation.reduce((acc: string, variable: Variable, index: number) => {
       const first = index === 0;

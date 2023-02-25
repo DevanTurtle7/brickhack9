@@ -23,8 +23,11 @@ function App() {
       setEquation(equation.moveVariableFromSide(1, true));
       setCount(1);
     } else if (count === 1) {
-      setEquation(equation.moveVariableFromSide(0, true));
+      setEquation(equation.combine(0, 1, false));
       setCount(2);
+    } else if (count === 2) {
+      setEquation(equation.moveVariableFromSide(0, true));
+      setCount(3);
     }
   }, [count, setCount]);
 
