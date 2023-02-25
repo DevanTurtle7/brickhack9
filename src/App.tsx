@@ -48,10 +48,16 @@ function App() {
   };
 
   equation.printEquation();
+  console.log(!!equation.nextState);
 
   return (
     <div className='App'>
-      <Toolbar onUndo={undo} onRedo={redo} />
+      <Toolbar
+        onUndo={undo}
+        onRedo={redo}
+        canUndo={!!equation.prevState}
+        canRedo={!!equation.nextState}
+      />
       <div className='workspace'>
         <EquationComponent equation={equation} />
       </div>

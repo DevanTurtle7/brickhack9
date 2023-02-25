@@ -36,8 +36,17 @@ body {
   transform: translate(-50%, 0px);
 }
 
-.toolbar svg {
+.toolbar .icon-button {
   font-size: 24px;
   margin-left: 6px;
   margin-right: 6px;
+  cursor: pointer;
+}
+
+.icon-button-enabled {
+  color: black
+}
+
+.icon-button-disabled {
+  color: rgb(202, 202, 202)
 }
