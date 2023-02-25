@@ -4,19 +4,17 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.equation, .left, .right {
-  display: flex;
-  flex-flow: row;
-}
-
-.equation {
-  justify-content: center;
-}
-
-
 .variable, .operator {
   width: fit-content;
   font-size: 64px;
+}
+
+.left .variable, .left .operator {
+  float: right;
+}
+
+.right .variable, .right .operator {
+  float: left;
 }
 
 .operator {
@@ -24,13 +22,16 @@ body {
   margin-right: 24px;
 }
 
+.container {
+  display: block;
+}
+
 .workspace {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-flow: column;
+  display: grid;
+  grid-template-columns: 1fr 100px 1fr;
   align-items: center;
-  justify-content: center;
 }
 
 .toolbar {
