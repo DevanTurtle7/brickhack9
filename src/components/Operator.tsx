@@ -2,7 +2,7 @@ interface Props {
   symbol: 'plus' | 'minus' | 'equals';
 }
 
-const Operator = ({symbol}: Props) => {
+const Operator = ({ symbol }: Props) => {
   const getSymbol = () => {
     if (symbol === 'plus') {
       return '+';
@@ -13,7 +13,7 @@ const Operator = ({symbol}: Props) => {
     }
   };
 
-  return <p className='operator'>{getSymbol()}</p>;
+  return <p className="operator">{getSymbol()}</p>;
 };
 
 export default Operator;

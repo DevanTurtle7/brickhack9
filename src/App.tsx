@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import { useState } from 'react';
 import EquationComponent from './components/EquationComponent';
 import Toolbar from './components/Toolbar';
 import Equation from './model/Equation';
@@ -20,37 +20,8 @@ function App() {
   const right = [three];
 
   const [equation, setEquation] = useState(new Equation(left, right));
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    console.log('Moving 6 left to right');
-    if (count === 0) {
-      setEquation(equation.moveVariableFromSide(2, true));
-      setCount(1);
-    } else if (count === 1) {
-      setEquation(equation.combine(0, 1, false));
-      setCount(2);
-    } else if (count === 2) {
-      setEquation(equation.combine(0, 1, true));
-      setCount(3);
-    }
-  }, [count, setCount]);
-
-  const printHistory = () => {
-    console.log('Equation history:');
-    let current = equation;
-
-    current.printEquation();
-    while (current.prevState != null) {
-      current.prevState.printEquation();
-      current = current.prevState;
-    }
-  };
-
-  printHistory();
 
   const undo = () => {
-    console.log('UNDO');
     if (equation.prevState) {
       setEquation(equation.prevState);
     }
@@ -62,11 +33,8 @@ function App() {
     }
   };
 
-  equation.printEquation();
-  console.log(!!equation.nextState);
-
   return (
-    <div className='App'>
+    <div className="App">
       <Toolbar
         onUndo={undo}
         onRedo={redo}
@@ -74,8 +42,8 @@ function App() {
         canRedo={!!equation.nextState}
         equation={equation}
       />
-      <div className='workspace'>
-        <EquationComponent equation={equation} />
+      <div className="workspace">
+        <EquationComponent equation={equation} setEquation={setEquation} />
       </div>
     </div>
   );

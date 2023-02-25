@@ -1,5 +1,10 @@
 import Element from './Element';
 
+export enum Side {
+  Left,
+  Right,
+}
+
 class Equation {
   left: Element[];
   right: Element[];

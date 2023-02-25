@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {MdUndo, MdRedo, MdHistory} from 'react-icons/md';
+import { useState } from 'react';
+import { MdUndo, MdRedo, MdHistory } from 'react-icons/md';
 import Equation from '../model/Equation';
 import HistoryModal from './HistoryModal';
 
@@ -11,7 +11,7 @@ interface Props {
   equation: Equation;
 }
 
-const Toolbar = ({onUndo, onRedo, canUndo, canRedo, equation}: Props) => {
+const Toolbar = ({ onUndo, onRedo, canUndo, canRedo, equation }: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -30,7 +30,7 @@ const Toolbar = ({onUndo, onRedo, canUndo, canRedo, equation}: Props) => {
         equation={equation}
       />
 
-      <div className='toolbar'>
+      <div className="toolbar">
         <MdUndo
           onClick={onUndo}
           className={`icon-button icon-button-${
@@ -39,7 +39,7 @@ const Toolbar = ({onUndo, onRedo, canUndo, canRedo, equation}: Props) => {
         />
         <MdHistory
           onClick={openModal}
-          className='icon-button icon-button-enabled'
+          className="icon-button icon-button-enabled"
         />
         <MdRedo
           onClick={onRedo}
