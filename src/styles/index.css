@@ -19,6 +19,23 @@ body {
   font-size: 64px;
 }
 
+.variable.dragging {
+  color: blue;
+}
+
+.variable.drop-zone.can-drop {
+  color: yellow;
+}
+
+.drop-zone:not(.can-drop) {
+  visibility: hidden;
+}
+
+.variable.drop-zone.is-over {
+  color: green;
+  font-size: 64px;
+}
+
 .operator {
   margin-left: 24px;
   margin-right: 24px;

@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import EquationComponent from './components/EquationComponent';
-import Toolbar from './components/Toolbar';
-import Equation from './model/Equation';
-import Variable from './model/Variable';
+import React, { useEffect, useState } from "react";
+import EquationComponent from "./components/EquationComponent";
+import Toolbar from "./components/Toolbar";
+import Equation from "./model/Equation";
+import Variable from "./model/Variable";
 
-import './styles/index.css';
+import "./styles/index.css";
 
 function App() {
-  const x = new Variable('x', true);
-  const six = new Variable('number', true, 6);
-  const three = new Variable('number', false, 3);
+  const x = new Variable("x", true);
+  const six = new Variable("number", true, 6);
+  const three = new Variable("number", false, 3);
 
   const left = [x, six];
   const right = [three];
@@ -18,18 +18,18 @@ function App() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    console.log('Moving 6 left to right');
+    console.log("Moving 6 left to right");
     if (count === 0) {
       setEquation(equation.moveVariableFromSide(1, true));
       setCount(1);
     } else if (count === 1) {
-      setEquation(equation.moveVariableFromSide(0, true));
+      //setEquation(equation.moveVariableFromSide(0, true));
       setCount(2);
     }
-  }, [count, setCount]);
+  }, [count, equation, setCount]);
 
   const printHistory = () => {
-    console.log('Equation history:');
+    console.log("Equation history:");
     let current = equation;
 
     current.printEquation();
@@ -42,7 +42,7 @@ function App() {
   printHistory();
 
   const undo = () => {
-    console.log('UNDO');
+    console.log("UNDO");
     if (equation.prevState) {
       setEquation(equation.prevState);
     }
@@ -57,16 +57,20 @@ function App() {
   equation.printEquation();
   console.log(!!equation.nextState);
 
+  console.log(
+    `APp update: Eq: ${equation.left.length} by ${equation.right.length}`
+  );
+
   return (
-    <div className='App'>
+    <div className="App">
       <Toolbar
         onUndo={undo}
         onRedo={redo}
         canUndo={!!equation.prevState}
         canRedo={!!equation.nextState}
       />
-      <div className='workspace'>
-        <EquationComponent equation={equation} />
+      <div className="workspace">
+        <EquationComponent equation={equation} setEquation={setEquation} />
       </div>
     </div>
   );

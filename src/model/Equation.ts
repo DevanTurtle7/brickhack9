@@ -1,4 +1,9 @@
-import Variable from './Variable';
+import Variable from "./Variable";
+
+export enum Side {
+  Left,
+  Right,
+}
 
 class Equation {
   left: Variable[];
@@ -21,13 +26,16 @@ class Equation {
     equation.splice(to, 0, variable);
 
     if (equation.length === 0) {
-      equation.push(new Variable('number', true, 0));
+      equation.push(new Variable("number", true, 0));
     }
 
     return newEquation;
   }
 
   moveVariableFromSide(fromIndex: number, fromLeft: boolean) {
+    console.log(
+      `fromind: ${fromIndex}, fromLeft: ${fromLeft}, leftLen: ${this.left.length}, rightLen, ${this.right.length}`
+    );
     const newEquation = this.getNextEquation();
 
     const fromEquation = fromLeft ? newEquation.left : newEquation.right;
@@ -35,7 +43,7 @@ class Equation {
     const variable = fromEquation.splice(fromIndex, 1)[0];
 
     if (fromEquation.length === 0) {
-      fromEquation.push(new Variable('number', true, 0));
+      fromEquation.push(new Variable("number", true, 0));
     }
 
     // Change positivity when moving sides
@@ -51,17 +59,17 @@ class Equation {
       const first = index === 0;
 
       if (!first) {
-        acc += ` ${variable.positive ? '+' : '-'} `;
+        acc += ` ${variable.positive ? "+" : "-"} `;
       }
 
-      acc += variable.type === 'number' ? variable.value : variable.type;
+      acc += variable.type === "number" ? variable.value : variable.type;
 
       return acc;
-    }, '');
+    }, "");
 
   printEquation() {
     console.log(
-      this.getEquationStr(this.left) + ' = ' + this.getEquationStr(this.right)
+      this.getEquationStr(this.left) + " = " + this.getEquationStr(this.right)
     );
   }
 
