@@ -9,13 +9,27 @@ interface Props {
 const EquationComponent = ({equation}: Props) => {
   return (
     <div className='equation'>
-      {equation.left.map((variable, index) => (
-        <VariableContainer variable={variable} first={index === 0} />
-      ))}
-      <Operator symbol='equals' />
-      {equation.right.map((variable, index) => (
-        <VariableContainer variable={variable} first={index === 0} />
-      ))}
+      <div className='left'>
+        {equation.left.map((variable, index) => (
+          <VariableContainer
+            variable={variable}
+            first={index === 0}
+            key={variable.value + '-' + index}
+          />
+        ))}
+      </div>
+      <div className='middle'>
+        <Operator symbol='equals' />
+      </div>
+      <div className='right'>
+        {equation.right.map((variable, index) => (
+          <VariableContainer
+            variable={variable}
+            first={index === 0}
+            key={variable.value + '-' + index}
+          />
+        ))}
+      </div>
     </div>
   );
 };

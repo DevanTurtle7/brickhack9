@@ -4,10 +4,15 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.equation {
+.equation, .left, .right {
   display: flex;
   flex-flow: row;
 }
+
+.equation {
+  justify-content: center;
+}
+
 
 .variable, .operator {
   width: fit-content;
@@ -36,8 +41,17 @@ body {
   transform: translate(-50%, 0px);
 }
 
-.toolbar svg {
+.toolbar .icon-button {
   font-size: 24px;
   margin-left: 6px;
   margin-right: 6px;
+}
+
+.icon-button-enabled {
+  color: black;
+  cursor: pointer;
+}
+
+.icon-button-disabled {
+  color: rgb(202, 202, 202)
 }
