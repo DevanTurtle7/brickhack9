@@ -1,7 +1,9 @@
 import React from 'react';
 import EquationComponent from './components/EquationComponent';
+import Toolbar from './components/Toolbar';
 import Equation from './model/Equation';
 import Variable from './model/Variable';
+
 import './styles/index.css';
 
 function App() {
@@ -20,7 +22,10 @@ function App() {
 
   return (
     <div className='App'>
-      <EquationComponent equation={equation} />
+      <Toolbar />
+      <div className='workspace'>
+        <EquationComponent equation={equation} />
+      </div>
     </div>
   );
 }
