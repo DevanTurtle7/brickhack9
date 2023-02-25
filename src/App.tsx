@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import EquationComponent from './components/EquationComponent';
 import Toolbar from './components/Toolbar';
 import Equation from './model/Equation';
@@ -14,21 +14,44 @@ function App() {
   const left = [x, six];
   const right = [three];
 
-  const equation = new Equation(left, right);
-  equation.printEquation();
-  console.log('Moving 6 left to right');
-  equation.moveVariableFromSide(1, true);
-  equation.printEquation();
+  const [equation, setEquation] = useState(new Equation(left, right));
 
-  console.log('Equation history:');
-  equation.history.forEach((history) => {
-    history.printEquation();
-  });
+  useEffect(() => {
+    console.log('Moving 6 left to right');
+    setEquation(equation.moveVariableFromSide(1, true));
+  }, []);
+
+  const printHistory = () => {
+    console.log('Equation history:');
+    let current = equation;
+
+    current.printEquation();
+    while (current.prevState != null) {
+      current.prevState.printEquation();
+      current = current.prevState;
+    }
+  };
+
+  printHistory();
+
+  const undo = () => {
+    console.log('UNDO');
+    if (equation.prevState) {
+      setEquation(equation.prevState);
+    }
+  };
+
+  const redo = () => {
+    if (equation.nextState) {
+      setEquation(equation.nextState);
+    }
+  };
+
   equation.printEquation();
 
   return (
     <div className='App'>
-      <Toolbar />
+      <Toolbar onUndo={undo} onRedo={redo} />
       <div className='workspace'>
         <EquationComponent equation={equation} />
       </div>

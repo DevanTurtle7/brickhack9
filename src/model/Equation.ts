@@ -3,35 +3,40 @@ import Variable from './Variable';
 class Equation {
   left: Variable[];
   right: Variable[];
-  history: Equation[];
+  prevState: Equation | null;
+  nextState: Equation | null;
 
   constructor(left: Variable[], right: Variable[]) {
     this.left = left;
     this.right = right;
-    this.history = [];
-  }
-
-  private updateHistory() {
-    this.history.push(this.clone());
+    this.prevState = null;
+    this.nextState = null;
   }
 
   moveVariable(from: number, to: number, left: boolean) {
-    this.updateHistory();
-    const equation = left ? this.left : this.right;
+    const newEquation = this.getNextEquation();
+
+    const equation = left ? newEquation.left : newEquation.right;
     const variable = equation.splice(from, 1)[0];
     equation.splice(to, 0, variable);
+
+    return newEquation;
   }
 
   moveVariableFromSide(fromIndex: number, fromLeft: boolean) {
-    this.updateHistory();
-    const fromEquation = fromLeft ? this.left : this.right;
-    const toEquation = fromLeft ? this.right : this.left;
+    const newEquation = this.getNextEquation();
+
+    const fromEquation = fromLeft ? newEquation.left : newEquation.right;
+    const toEquation = fromLeft ? newEquation.right : newEquation.left;
     const variable = fromEquation.splice(fromIndex, 1)[0];
+    console.log(variable);
 
     // Change positivity when moving sides
     variable.positive = !variable.positive;
 
     toEquation.splice(toEquation.length, 0, variable);
+
+    return newEquation;
   }
 
   private getEquationStr = (equation: Variable[]) =>
@@ -59,9 +64,18 @@ class Equation {
       this.right.map((variable) => variable.clone())
     );
 
-    equationClone.history = this.history.map((equation) => equation);
+    equationClone.nextState = this.nextState;
+    equationClone.prevState = this.prevState;
 
     return equationClone;
+  }
+
+  private getNextEquation() {
+    const newEquation = this.clone();
+    newEquation.prevState = this;
+    this.nextState = newEquation;
+
+    return newEquation;
   }
 }
 

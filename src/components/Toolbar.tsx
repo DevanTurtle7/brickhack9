@@ -1,11 +1,16 @@
 import {MdUndo, MdRedo, MdHistory} from 'react-icons/md';
 
-const Toolbar = () => {
+interface Props {
+  onUndo: () => void;
+  onRedo: () => void;
+}
+
+const Toolbar = ({onUndo, onRedo}: Props) => {
   return (
     <div className='toolbar'>
-      <MdUndo />
+      <MdUndo onClick={onUndo} />
       <MdHistory />
-      <MdRedo />
+      <MdRedo onClick={onRedo} />
     </div>
   );
 };
