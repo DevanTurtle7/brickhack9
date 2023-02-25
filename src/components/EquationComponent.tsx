@@ -12,13 +12,11 @@ interface Props {
 export type MoveItemType = (item: VariableItem) => void;
 
 const EquationComponent = ({ equation, setEquation }: Props) => {
-  function moveItem(item: VariableItem) {
+  const moveItem = (item: VariableItem) => {
     setEquation(
       equation.moveVariableFromSide(item.index, item.side === Side.Left)
     );
-  }
-
-  console.log('rerendering', equation);
+  };
 
   return (
     <div className="equation">

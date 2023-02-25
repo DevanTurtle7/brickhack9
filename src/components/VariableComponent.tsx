@@ -9,13 +9,20 @@ interface Props {
 }
 
 const VariableComponent = ({ value, index, side }: Props) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: DragTypes.ELEMENT,
-    item: { index, side },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: DragTypes.ELEMENT,
+      canDrag: () => {
+        console.log(value);
+        return value !== '0';
+      },
+      item: { index, side },
+      collect: (monitor) => ({
+        isDragging: !!monitor.isDragging(),
+      }),
     }),
-  }));
+    [value, index, side]
+  );
 
   return (
     <p ref={drag} className={`variable ${isDragging ? 'dragging' : ''}`}>

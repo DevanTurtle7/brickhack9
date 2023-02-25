@@ -10,15 +10,18 @@ interface Props {
 }
 
 const ElementAddDropZone = ({ side, moveItem }: Props) => {
-  const [{ isOver, canDrop }, drop] = useDrop(() => ({
-    accept: DragTypes.ELEMENT,
-    drop: (item: VariableItem) => moveItem(item),
-    canDrop: (item: VariableItem) => item.side !== side,
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-      canDrop: !!monitor.canDrop(),
+  const [{ isOver, canDrop }, drop] = useDrop(
+    () => ({
+      accept: DragTypes.ELEMENT,
+      drop: (item: VariableItem) => moveItem(item),
+      canDrop: (item: VariableItem) => item.side !== side,
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop(),
+      }),
     }),
-  }));
+    [moveItem]
+  );
 
   return (
     <p
