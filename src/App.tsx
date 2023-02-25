@@ -2,6 +2,7 @@ import React from 'react';
 import EquationComponent from './components/EquationComponent';
 import Equation from './model/Equation';
 import Variable from './model/Variable';
+import './styles/index.css';
 
 function App() {
   const x = new Variable('x', true);

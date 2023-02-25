@@ -1,0 +1,14 @@
+.equation {
+  display: flex;
+  flex-flow: row;
+}
+
+.variable {
+  width: fit-content;
+}
+
+.operator {
+  width: fit-content;
+  margin-left: 5px;
+  margin-right: 5px;
+}
