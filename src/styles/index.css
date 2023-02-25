@@ -1,14 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .equation {
   display: flex;
   flex-flow: row;
 }
 
-.variable {
+.variable, .operator {
   width: fit-content;
+  font-size: 64px;
 }
 
 .operator {
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+.workspace {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbar {
   width: fit-content;
-  margin-left: 5px;
-  margin-right: 5px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%, 0px);
+}
+
+.toolbar svg {
+  font-size: 24px;
+  margin-left: 6px;
+  margin-right: 6px;
 }

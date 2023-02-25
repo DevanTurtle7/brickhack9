@@ -1,13 +1,15 @@
 import React from 'react';
 import EquationComponent from './components/EquationComponent';
+import Toolbar from './components/Toolbar';
 import Equation from './model/Equation';
 import Variable from './model/Variable';
+
 import './styles/index.css';
 
 function App() {
   const x = new Variable('x', true);
   const six = new Variable('number', true, 6);
-  const three = new Variable('number', true, 3);
+  const three = new Variable('number', false, 3);
 
   const left = [x, six];
   const right = [three];
@@ -20,7 +22,10 @@ function App() {
 
   return (
     <div className='App'>
-      <EquationComponent equation={equation} />
+      <Toolbar />
+      <div className='workspace'>
+        <EquationComponent equation={equation} />
+      </div>
     </div>
   );
 }
