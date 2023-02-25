@@ -34,8 +34,23 @@ class Equation {
     toEquation.splice(toEquation.length, 0, variable);
   }
 
+  private getEquationStr = (equation: Variable[]) =>
+    equation.reduce((acc: string, variable: Variable, index: number) => {
+      const first = index === 0;
+
+      if (!first) {
+        acc += ` ${variable.positive ? '+' : '-'} `;
+      }
+
+      acc += variable.type === 'number' ? variable.value : variable.type;
+
+      return acc;
+    }, '');
+
   printEquation() {
-    console.log(JSON.stringify(this.left) + ' = ' + JSON.stringify(this.right));
+    console.log(
+      this.getEquationStr(this.left) + ' = ' + this.getEquationStr(this.right)
+    );
   }
 }
 
