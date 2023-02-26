@@ -86,8 +86,8 @@ const HelpModal = ({ modalOpen, onCloseModal, setEquation }: Props) => {
 
           <h3>Sample Equations</h3>
           <div className="samples">
-            {samples.map(({ text, equation }) => (
-              <div className="sample-item">
+            {samples.map(({ text, equation }, index) => (
+              <div className="sample-item" key={index}>
                 <p>{text}</p>
                 <Button
                   variant="text"
