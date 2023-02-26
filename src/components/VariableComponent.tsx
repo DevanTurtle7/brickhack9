@@ -1,33 +1,28 @@
-import { useEffect } from 'react';
+
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '../model/DragTypes';
-import { Side } from '../model/Equation';
+import Element from '../model/Element';
 
 interface Props {
   value: string;
   index: number;
-  side: Side;
-  onDragChange: (isDragging: boolean) => void;
+  element: Element;
 }
 
-const VariableComponent = ({ value, index, side, onDragChange }: Props) => {
+const VariableComponent = ({ value, index, element }: Props) => {
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: DragTypes.ELEMENT,
       canDrag: () => {
         return value !== '0';
       },
-      item: { index, side },
+      item: { index, element },
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
     }),
-    [value, index, side]
+    [value, index, element]
   );
-
-  useEffect(() => {
-    onDragChange(isDragging);
-  }, [isDragging, onDragChange]);
 
   return (
     <p ref={drag} className={`variable ${isDragging ? 'dragging' : ''}`}>

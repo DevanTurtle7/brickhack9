@@ -3,8 +3,6 @@ import Operator from './Operator';
 import ElementContainer from './ElementContainer';
 import { VariableItem } from '../model/Variable';
 import ElementAddDropZone from './ElementAddDropZone';
-import { useState } from 'react';
-import Element from '../model/Element';
 
 interface Props {
   equation: Equation;
@@ -14,15 +12,9 @@ interface Props {
 export type MoveItemType = (item: VariableItem) => void;
 
 const EquationComponent = ({ equation, setEquation }: Props) => {
-  const [dragTarget, setDragTarget] = useState<Element | null>(null);
-
-  const updateDragTarget = (target: Element | null) => {
-    setDragTarget(target);
-  };
-
   const moveItem = (item: VariableItem) => {
     setEquation(
-      equation.moveVariableFromSide(item.index, item.side === Side.Left)
+      equation.moveVariableFromSide(item.index, item.element.side === Side.Left)
     );
   };
 
@@ -33,17 +25,10 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
           <ElementContainer
             element={element}
             index={index}
-            setDragTarget={updateDragTarget}
-            dragTarget={dragTarget}
             key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}
-        {dragTarget && dragTarget.side === Side.Right && (
-          <>
-            <Operator symbol={dragTarget.positive ? 'minus' : 'plus'} />
-            <ElementAddDropZone side={Side.Left} moveItem={moveItem} />
-          </>
-        )}
+        <ElementAddDropZone side={Side.Left} moveItem={moveItem} />
       </div>
       <div className="middle">
         <Operator symbol="equals" />
@@ -53,17 +38,10 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
           <ElementContainer
             element={element}
             index={index}
-            setDragTarget={setDragTarget}
-            dragTarget={dragTarget}
             key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}
-        {dragTarget && dragTarget.side === Side.Left && (
-          <>
-            <Operator symbol={dragTarget.positive ? 'minus' : 'plus'} />
-            <ElementAddDropZone side={Side.Right} moveItem={moveItem} />
-          </>
-        )}
+        <ElementAddDropZone side={Side.Right} moveItem={moveItem} />
       </div>
     </div>
   );

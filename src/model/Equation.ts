@@ -108,8 +108,8 @@ class Equation {
       return acc;
     }, '');
 
-  printEquation() {
-    console.log(
+  toString() {
+    return (
       this.getEquationStr(this.left) + ' = ' + this.getEquationStr(this.right)
     );
   }

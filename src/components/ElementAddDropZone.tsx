@@ -3,6 +3,7 @@ import { DragTypes } from '../model/DragTypes';
 import { Side } from '../model/Equation';
 import { VariableItem } from '../model/Variable';
 import { MoveItemType } from './EquationComponent';
+import Operator from './Operator';
 
 interface Props {
   side: Side;
@@ -10,29 +11,32 @@ interface Props {
 }
 
 const ElementAddDropZone = ({ side, moveItem }: Props) => {
-  const [{ isOver, canDrop }, drop] = useDrop(
+  const [{ isOver, canDrop, item }, drop] = useDrop(
     () => ({
       accept: DragTypes.ELEMENT,
       drop: (item: VariableItem) => moveItem(item),
       canDrop: (item: VariableItem) => {
-        return item.side !== side;
+        return item.element.side !== side;
       },
 
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
         canDrop: !!monitor.canDrop(),
+        item : monitor.getItem(),
       }),
     }),
     [moveItem]
   );
 
   return (
+    <>
+    {canDrop && <Operator symbol={item.element.positive ? 'minus' : 'plus'} />}
     <p
       ref={drop}
       className={`variable drop-zone ${canDrop ? 'can-drop' : ''} ${
         isOver ? 'is-over' : ''
       }`}
-    ></p>
+    ></p></>
   );
 };
 
