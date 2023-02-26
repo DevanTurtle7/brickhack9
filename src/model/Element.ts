@@ -33,6 +33,10 @@ class Element {
     }
   }
 
+  divideBy(divisor: number) {
+    this.denominator *= divisor;
+  }
+
   isNumber() {
     return this.variables.length === 0;
   }

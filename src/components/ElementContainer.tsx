@@ -1,34 +1,16 @@
 import { useState } from 'react';
 import Element from '../model/Element';
 import Operator from './Operator';
-import VariableComponent from './VariableComponent';
+import ElementComponent from './ElementComponent';
 
 interface Props {
   element: Element;
   index: number;
   setDragTarget: (target: Element | null) => void;
-  dragTarget: Element | null;
 }
 
-const ElementContainer = ({
-  element,
-  index,
-  setDragTarget,
-  dragTarget,
-}: Props) => {
+const ElementContainer = ({ element, index, setDragTarget }: Props) => {
   const [isDragging, setIsDragging] = useState(false);
-
-  const first = index === 0;
-  const symbol = first && !element.positive ? '-' : '';
-  const variables = element.variables.reduce(
-    (acc, variable) => acc + variable.type,
-    ''
-  );
-  const value =
-    symbol +
-    (element.variables.length > 0 && element.constant.value === 1
-      ? variables
-      : element.constant.value + variables);
 
   const onDragChange = (dragging: boolean) => {
     if (!dragging && isDragging) {
@@ -42,11 +24,10 @@ const ElementContainer = ({
 
   return (
     <>
-      {!first && <Operator symbol={element.positive ? 'plus' : 'minus'} />}
-      <VariableComponent
-        value={value}
+      {index !== 0 && <Operator symbol={element.positive ? 'plus' : 'minus'} />}
+      <ElementComponent
+        element={element}
         index={index}
-        side={element.side}
         onDragChange={onDragChange}
       />
     </>

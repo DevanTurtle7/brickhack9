@@ -29,21 +29,20 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
   return (
     <div className="equation">
       <div className="left">
+        {dragTarget && dragTarget.side === Side.Right && (
+          <>
+            <ElementAddDropZone side={Side.Left} moveItem={moveItem} />
+            <Operator symbol={dragTarget.positive ? 'minus' : 'plus'} />
+          </>
+        )}
         {equation.left.map((element, index) => (
           <ElementContainer
             element={element}
             index={index}
             setDragTarget={updateDragTarget}
-            dragTarget={dragTarget}
             key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}
-        {dragTarget && dragTarget.side === Side.Right && (
-          <>
-            <Operator symbol={dragTarget.positive ? 'minus' : 'plus'} />
-            <ElementAddDropZone side={Side.Left} moveItem={moveItem} />
-          </>
-        )}
       </div>
       <div className="middle">
         <Operator symbol="equals" />
@@ -54,7 +53,6 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
             element={element}
             index={index}
             setDragTarget={setDragTarget}
-            dragTarget={dragTarget}
             key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}

@@ -10,6 +10,20 @@ p {
   margin: 0;
 }
 
+.left, .right {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+
+.left {
+  justify-content: flex-end;
+}
+
+.right {
+  justify-content: flex-start;
+}
+
 .variable,
 .operator {
   width: fit-content;
@@ -129,4 +143,10 @@ p {
   display: flex;
   flex-flow: row;
   justify-content: flex-end;
+}
+
+.divisor-line {
+  height: 5px;
+  width: 100%;
+  background-color: black;
 }
