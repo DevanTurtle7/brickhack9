@@ -7,7 +7,11 @@ import Element from './model/Element';
 
 import './styles/index.css';
 
-function App() {
+interface Props {
+  touchEnabled: boolean;
+}
+
+function App({ touchEnabled }: Props) {
   const xVar = new Variable('x');
   const x = new Element(1, true, Side.Left, [xVar]);
   const xVar2 = new Variable('x');
@@ -25,9 +29,15 @@ function App() {
     setEquation(equation.divideSidesBy(0, Side.Left));
   };
 
+  console.log(touchEnabled);
+
   return (
     <div className="App">
-      <Toolbar equation={equation} setEquation={setEquation} />
+      <Toolbar
+        equation={equation}
+        setEquation={setEquation}
+        touchEnabled={touchEnabled}
+      />
       <button
         onClick={divide}
         style={{ position: 'absolute', top: '0px', left: '0px' }}

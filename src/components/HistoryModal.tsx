@@ -59,7 +59,7 @@ const HistoryModal = ({
 
   return (
     <Modal open={modalOpen} disableAutoFocus={true}>
-      <div className="history-modal">
+      <div className="modal">
         <div className="content">
           <h2>History</h2>
           <div className="history-items">{getHistoryItems()}</div>

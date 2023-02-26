@@ -9,6 +9,7 @@ import ConstantComponent from './ConstantComponent';
 interface Props {
   element: Element;
   index: number;
+  first: boolean;
   onSimplify: (index: number, side: Side) => void;
   onSplitToggle: (index: number, side: Side) => void;
   combineItems: CombineItemsType;
@@ -17,6 +18,7 @@ interface Props {
 const ElementContainer = ({
   element,
   index,
+  first,
   onSimplify,
   onSplitToggle,
   combineItems,
@@ -81,6 +83,7 @@ const ElementContainer = ({
         <ElementComponent
           element={element}
           index={index}
+          first={first}
           onSimplify={onSimplify}
           onSplitToggle={onSplitToggle}
           combineItems={combineItems}
