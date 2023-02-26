@@ -35,7 +35,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
             index={index}
             setDragTarget={updateDragTarget}
             dragTarget={dragTarget}
-            key={index}
+            key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}
         {dragTarget && dragTarget.side === Side.Right && (
@@ -55,7 +55,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
             index={index}
             setDragTarget={setDragTarget}
             dragTarget={dragTarget}
-            key={index}
+            key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}
         {dragTarget && dragTarget.side === Side.Left && (
