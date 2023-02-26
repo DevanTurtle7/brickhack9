@@ -8,6 +8,7 @@ import { TouchBackend } from 'react-dnd-touch-backend';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 function isTouchDevice() {
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }

@@ -10,6 +10,10 @@ interface Props {
 }
 
 export type MoveItemType = (item: VariableItem) => void;
+export type CombineItemsType = (
+  item1: VariableItem,
+  item2: VariableItem
+) => void;
 
 const EquationComponent = ({ equation, setEquation }: Props) => {
   const moveItem = (item: VariableItem) => {
@@ -22,6 +26,17 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
     setEquation(equation.simplifyElementFraction(index, side));
   };
 
+  const combineItems = (item1: VariableItem, item2: VariableItem) => {
+    console.log(item1, item2);
+    setEquation(
+      equation.combine(
+        item1.index,
+        item2.index,
+        item1.element.side === Side.Left
+      )
+    );
+  };
+
   return (
     <div className="equation">
       <div className="left">
@@ -31,6 +46,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
             element={element}
             index={index}
             onSimplify={onSimplify}
+            combineItems={combineItems}
             key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}
@@ -44,6 +60,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
             element={element}
             index={index}
             onSimplify={onSimplify}
+            combineItems={combineItems}
             key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}
