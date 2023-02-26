@@ -50,7 +50,6 @@ const ElementComponent = ({
       canDrop: (item: VariableItem) => {
         return (
           item.index !== index &&
-          item.element.side === element.side &&
           item.element.denominator === element.denominator &&
           item.element.equalsType(element)
         );

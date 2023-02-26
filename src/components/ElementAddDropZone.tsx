@@ -30,7 +30,7 @@ const ElementAddDropZone = ({ side, moveItem }: Props) => {
 
   return (
     <>
-      {side === Side.Right && canDrop && (
+      {canDrop && (
         <Operator symbol={item.element.positive ? 'minus' : 'plus'} />
       )}
       <p
@@ -39,9 +39,6 @@ const ElementAddDropZone = ({ side, moveItem }: Props) => {
           isOver ? 'is-over' : ''
         }`}
       ></p>
-      {side === Side.Left && canDrop && (
-        <Operator symbol={item.element.positive ? 'minus' : 'plus'} />
-      )}
     </>
   );
 };
