@@ -18,6 +18,10 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
     );
   };
 
+  const onSimplify = (index: number, side: Side) => {
+    setEquation(equation.simplifyElementFraction(index, side));
+  };
+
   return (
     <div className="equation">
       <div className="left">
@@ -26,6 +30,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
           <ElementContainer
             element={element}
             index={index}
+            onSimplify={onSimplify}
             key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}
@@ -38,6 +43,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
           <ElementContainer
             element={element}
             index={index}
+            onSimplify={onSimplify}
             key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}

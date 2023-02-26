@@ -1,13 +1,16 @@
+import { useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '../model/DragTypes';
 import Element from '../model/Element';
+import { Side } from '../model/Equation';
 
 interface Props {
   element: Element;
   index: number;
+  onSimplify: (index: number, side: Side) => void;
 }
 
-const ElementComponent = ({ element, index }: Props) => {
+const ElementComponent = ({ element, index, onSimplify }: Props) => {
   const symbol = index === 0 && !element.positive ? '-' : '';
   const variables = element.variables.reduce(
     (acc, variable) => acc + variable.type,
@@ -33,8 +36,12 @@ const ElementComponent = ({ element, index }: Props) => {
     [value, index, element]
   );
 
+  const onClick = () => {
+    onSimplify(index, element.side);
+  };
+
   return (
-    <div className="variable">
+    <div className="variable" onClick={onClick}>
       <p ref={drag} className={isDragging ? 'dragging' : ''}>
         {value}
       </p>

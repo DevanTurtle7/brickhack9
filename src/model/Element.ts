@@ -40,6 +40,7 @@ class Element {
   simplifyFraction() {
     if (this.constant.value % this.denominator === 0) {
       this.constant.value /= this.denominator;
+      this.denominator = 1;
     }
   }
 
