@@ -164,10 +164,22 @@ p {
   margin-bottom: 10px;
 }
 
+.history-item p {
+  margin-left: 10px;
+}
+
+.history-item button {
+  margin-right: 10px;
+}
+
 .history-items {
   max-height: 200px;
   overflow: scroll;
   margin-bottom: 30px;
   padding-right: 10px;
   padding-left: 10px;
+}
+
+.history-item-current {
+  background-color: #1976d22b;
 }

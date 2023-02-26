@@ -22,19 +22,24 @@ const HistoryModal = ({
 
   const getHistoryItems = () => {
     let current = equation;
+    let currentIndex = 0;
 
     // Go to most recent state
     while (current.nextState !== null) {
       current = current.nextState;
+      currentIndex += 1;
     }
 
     const items = [
       <HistoryItem
         equation={current}
         onJumpTo={onJumpTo}
+        current={currentIndex === 0}
         key={equation.toString()}
       />,
     ];
+
+    let index = 1;
 
     while (current.prevState !== null) {
       current = current.prevState;
@@ -42,9 +47,11 @@ const HistoryModal = ({
         <HistoryItem
           equation={current}
           onJumpTo={onJumpTo}
+          current={currentIndex === index}
           key={equation.toString()}
         />
       );
+      index++;
     }
 
     return items;

@@ -5,9 +5,10 @@ import Equation from '../model/Equation';
 interface Props {
   equation: Equation;
   onJumpTo: (equation: Equation) => void;
+  current: boolean;
 }
 
-const HistoryItem = ({ equation, onJumpTo }: Props) => {
+const HistoryItem = ({ equation, onJumpTo, current }: Props) => {
   const formatSide = (elements: Element[]) =>
     elements.map((element, index) => {
       const elements = element.variables.reduce(
@@ -32,7 +33,7 @@ const HistoryItem = ({ equation, onJumpTo }: Props) => {
   };
 
   return (
-    <div className="history-item">
+    <div className={`history-item ${current ? 'history-item-current' : ''}`}>
       <p>
         {formatSide(equation.left)}
         {' = '}
