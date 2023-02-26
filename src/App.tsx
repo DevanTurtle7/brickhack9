@@ -28,7 +28,12 @@ function App() {
   return (
     <div className="App">
       <Toolbar equation={equation} setEquation={setEquation} />
-      <button onClick={divide}>Divide</button>
+      <button
+        onClick={divide}
+        style={{ position: 'absolute', top: '0px', left: '0px' }}
+      >
+        Divide
+      </button>
       <div className="workspace">
         <EquationComponent equation={equation} setEquation={setEquation} />
       </div>

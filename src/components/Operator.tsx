@@ -1,8 +1,9 @@
 interface Props {
   symbol: 'plus' | 'minus' | 'equals';
+  onClick?: () => void;
 }
 
-const Operator = ({ symbol }: Props) => {
+const Operator = ({ symbol, onClick = () => {} }: Props) => {
   const getSymbol = () => {
     if (symbol === 'plus') {
       return '+';
@@ -13,7 +14,11 @@ const Operator = ({ symbol }: Props) => {
     }
   };
 
-  return <p className="operator">{getSymbol()}</p>;
+  return (
+    <p className={`operator operator-${symbol}`} onClick={onClick}>
+      {getSymbol()}
+    </p>
+  );
 };
 
 export default Operator;

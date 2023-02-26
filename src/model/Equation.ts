@@ -106,6 +106,20 @@ class Equation {
     return newEquation;
   }
 
+  flipSides = () => {
+    const newEquation = this.getNextEquation();
+
+    const temp = newEquation.left;
+    const flip = (element: Element) => {
+      element.positive = !element.positive;
+      return element;
+    };
+    newEquation.left = newEquation.right.map(flip);
+    newEquation.right = temp.map(flip);
+
+    return newEquation;
+  };
+
   private getEquationStr = (equation: Element[]) =>
     equation.reduce((acc: string, element: Element, index: number) => {
       const first = index === 0;

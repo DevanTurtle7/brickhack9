@@ -28,6 +28,7 @@ p {
 .operator {
   width: fit-content;
   font-size: 64px;
+  text-align: center;
 }
 
 .left .variable,
@@ -77,8 +78,13 @@ p {
 }
 
 .operator {
-  margin-left: 24px;
-  margin-right: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin: 0;
+}
+
+.operator-equals {
+  cursor: pointer;
 }
 
 .container {
