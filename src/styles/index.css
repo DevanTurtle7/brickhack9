@@ -102,15 +102,15 @@ p {
 .toolbar {
   width: fit-content;
   position: absolute;
-  top: 10px;
+  top: 20px;
   left: 50%;
   transform: translate(-50%, 0px);
 }
 
 .toolbar .icon-button {
-  font-size: 24px;
-  margin-left: 6px;
-  margin-right: 6px;
+  font-size: 34px;
+  margin-left: 18px;
+  margin-right: 18px;
 }
 
 .icon-button-enabled {
