@@ -4,6 +4,7 @@ import Element from '../model/Element';
 import { Side } from '../model/Equation';
 import { VariableItem } from '../model/Variable';
 import { CombineItemsType } from './EquationComponent';
+import Operator from './Operator';
 
 interface Props {
   element: Element;
@@ -25,7 +26,7 @@ const ElementComponent = ({
   );
   const value =
     symbol +
-    (element.variables.length > 0 && element.constant.value === 1
+    (!element.isNumber() && element.constant.value === 1
       ? variables
       : element.constant.value + variables);
 
@@ -65,7 +66,12 @@ const ElementComponent = ({
   );
 
   const onClick = () => {
-    onSimplify(index, element.side);
+    console.log('click');
+    if (element.denominator === 1 && !element.isNumber()) {
+      element.split = !element.split;
+    } else {
+      onSimplify(index, element.side);
+    }
   };
 
   const draggingOrDroppingRef = canDrop ? drop : drag;
@@ -76,7 +82,27 @@ const ElementComponent = ({
   return (
     <>
       <div ref={draggingOrDroppingRef} className={className} onClick={onClick}>
-        <p>{value}</p>
+        {element.split ? (
+          <>
+            {element.constant.value !== 1 && (
+              <>
+                <p>{element.constant.value}</p>
+                <Operator symbol="multiply" />
+              </>
+            )}
+            {element.variables.reduce((acc, current, index) => {
+              const elements = [...acc];
+              elements.push(<p>{current.type}</p>);
+              if (index !== element.variables.length - 1) {
+                elements.push(<Operator symbol="multiply" />);
+              }
+
+              return elements;
+            }, [] as any[])}
+          </>
+        ) : (
+          <p>{value}</p>
+        )}
         {element.denominator !== 1 && (
           <>
             <div className="divisor-line" />
