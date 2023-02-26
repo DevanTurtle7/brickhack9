@@ -3,6 +3,7 @@ import Operator from './Operator';
 import ElementComponent from './ElementComponent';
 import { Side } from '../model/Equation';
 import { CombineItemsType } from './EquationComponent';
+import VariableComponent from './VariableComponent';
 
 interface Props {
   element: Element;
@@ -11,16 +12,44 @@ interface Props {
   combineItems: CombineItemsType;
 }
 
-const ElementContainer = ({ element, index, onSimplify, combineItems }: Props) => {
+const ElementContainer = ({
+  element,
+  index,
+  onSimplify,
+  combineItems,
+}: Props) => {
   return (
     <>
       {index !== 0 && <Operator symbol={element.positive ? 'plus' : 'minus'} />}
-      <ElementComponent
-        element={element}
-        index={index}
-        onSimplify={onSimplify}
-        combineItems={combineItems}
-      />
+      {element.split ? (
+        <>
+          {element.variables.reduce(
+            (acc, variable, variableIndex) => {
+              acc.push(<VariableComponent value={variable.type} />);
+              if (variableIndex !== element.variables.length - 1) {
+                acc.push(<Operator symbol="multiply" />);
+              }
+
+              return acc;
+            },
+            element.constant.value === 1
+              ? []
+              : [
+                  <VariableComponent
+                    value={element.constant.value.toString()}
+                  />,
+                  <Operator symbol="multiply" />,
+                ]
+          )}
+        </>
+      ) : (
+        <ElementComponent
+          element={element}
+          index={index}
+          onSimplify={onSimplify}
+          combineItems={combineItems}
+        />
+      )}
     </>
   );
 };

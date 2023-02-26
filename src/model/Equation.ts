@@ -117,6 +117,18 @@ class Equation {
     return newEquation;
   };
 
+  splitVariable = (index: number, side: Side) => {
+    const newEquation = this.getNextEquation();
+
+    const equation = side === Side.Left ? newEquation.left : newEquation.right;
+
+    if (!equation[index].isNumber()) {
+      equation[index].split = !equation[index].split;
+    }
+
+    return newEquation;
+  };
+
   private getEquationStr = (equation: Element[]) =>
     equation.reduce((acc: string, element: Element, index: number) => {
       const first = index === 0;
