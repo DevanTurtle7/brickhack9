@@ -11,7 +11,11 @@ import { TouchBackend } from 'react-dnd-touch-backend';
 
 import './styles/index.css';
 
-function App() {
+interface Props {
+  touchEnabled: boolean;
+}
+
+function App({ touchEnabled }: Props) {
   const xVar = new Variable('x');
   const x = new Element(1, true, Side.Left, [xVar]);
   const xVar2 = new Variable('x');
@@ -24,7 +28,6 @@ function App() {
   const right = [three];
 
   const [equation, setEquation] = useState(new Equation(left, right));
-  const [touchEnabled, setTouchEnabled] = useState(false);
 
   const divide = () => {
     setEquation(equation.divideSidesBy(0, Side.Left));
@@ -33,13 +36,12 @@ function App() {
   console.log(touchEnabled);
 
   return (
-    <DndProvider backend={touchEnabled ? TouchBackend : HTML5Backend}>
+    <DndProvider backend={true ? TouchBackend : HTML5Backend}>
       <div className="App">
         <Toolbar
           equation={equation}
           setEquation={setEquation}
           touchEnabled={touchEnabled}
-          setTouchEnabled={setTouchEnabled}
         />
         <button
           onClick={divide}

@@ -15,15 +15,9 @@ interface Props {
   equation: Equation;
   setEquation: React.Dispatch<React.SetStateAction<Equation>>;
   touchEnabled: boolean;
-  setTouchEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Toolbar = ({
-  equation,
-  setEquation,
-  touchEnabled,
-  setTouchEnabled,
-}: Props) => {
+const Toolbar = ({ equation, setEquation, touchEnabled }: Props) => {
   const [historyModalOpen, setHistoryModalOpen] = useState(false);
   const [settingsModalOpen, setSettingsModalOpen] = useState(false);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
@@ -79,7 +73,6 @@ const Toolbar = ({
         modalOpen={settingsModalOpen}
         onCloseModal={closeSettingsModal}
         touchEnabled={touchEnabled}
-        setTouchEnabled={setTouchEnabled}
       />
 
       <div id="help-container">

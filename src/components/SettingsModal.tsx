@@ -1,21 +1,22 @@
 import { Button, Modal, Switch } from '@mui/material';
+import { useState } from 'react';
 
 interface Props {
   modalOpen: boolean;
   onCloseModal: () => void;
   touchEnabled: boolean;
-  setTouchEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SettingsModal = ({
-  modalOpen,
-  onCloseModal,
-  touchEnabled,
-  setTouchEnabled,
-}: Props) => {
-  const onChange = () => {
-    setTouchEnabled((enabled) => !enabled);
+const SettingsModal = ({ modalOpen, onCloseModal, touchEnabled }: Props) => {
+  const [on, setOn] = useState(touchEnabled);
+
+  const onClose = () => {
+    localStorage.setItem('touch', on ? 'true' : 'false');
+    onCloseModal();
+    window.location.reload();
   };
+
+  const toggle = () => setOn((on) => !on);
 
   return (
     <Modal open={modalOpen} disableAutoFocus={true}>
@@ -23,12 +24,12 @@ const SettingsModal = ({
         <div className="content">
           <h2>Settings</h2>
           <p>
-            <Switch checked={touchEnabled} onChange={onChange} />
+            <Switch checked={on} onChange={toggle} />
             Touch controls
           </p>
         </div>
         <div className="footer">
-          <Button variant="contained" onClick={onCloseModal}>
+          <Button variant="contained" onClick={onClose}>
             Done
           </Button>
         </div>
