@@ -21,6 +21,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
   return (
     <div className="equation">
       <div className="left">
+        <ElementAddDropZone side={Side.Left} moveItem={moveItem} />
         {equation.left.map((element, index) => (
           <ElementContainer
             element={element}
@@ -28,7 +29,6 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
             key={element.getString() + '-' + index + '-' + element.side}
           />
         ))}
-        <ElementAddDropZone side={Side.Left} moveItem={moveItem} />
       </div>
       <div className="middle">
         <Operator symbol="equals" />

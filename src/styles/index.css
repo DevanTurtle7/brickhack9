@@ -10,6 +10,20 @@ p {
   margin: 0;
 }
 
+.left, .right {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+
+.left {
+  justify-content: flex-end;
+}
+
+.right {
+  justify-content: flex-start;
+}
+
 .variable,
 .operator {
   width: fit-content;
@@ -32,6 +46,10 @@ p {
   border-color: #ffffff00;
   padding-left: 5px;
   padding-right: 5px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .variable.dragging {
@@ -129,4 +147,10 @@ p {
   display: flex;
   flex-flow: row;
   justify-content: flex-end;
+}
+
+.divisor-line {
+  height: 5px;
+  width: 100%;
+  background-color: black;
 }

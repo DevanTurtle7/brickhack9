@@ -33,6 +33,10 @@ function App() {
     }
   };
 
+  const divide = () => {
+    setEquation(equation.divideSidesBy(3));
+  };
+
   return (
     <div className="App">
       <Toolbar
@@ -42,6 +46,7 @@ function App() {
         canRedo={!!equation.nextState}
         equation={equation}
       />
+      <button onClick={divide}>Divide</button>
       <div className="workspace">
         <EquationComponent equation={equation} setEquation={setEquation} />
       </div>

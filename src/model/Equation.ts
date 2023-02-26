@@ -62,13 +62,11 @@ class Equation {
     return newEquation;
   }
 
-  divideSideBy(divisorIndex: number, fromSide: Side) {
+  divideSidesBy(divisor: number) {
     const newEquation = this.getNextEquation();
 
-    const fromEquation =
-      fromSide === Side.Left ? newEquation.left : newEquation.right;
-    const toEquation =
-      fromSide === Side.Left ? newEquation.right : newEquation.left;
+    newEquation.left.forEach((element) => element.divideBy(divisor));
+    newEquation.right.forEach((element) => element.divideBy(divisor));
 
     return newEquation;
   }

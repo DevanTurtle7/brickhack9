@@ -22,7 +22,7 @@ const ElementAddDropZone = ({ side, moveItem }: Props) => {
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
         canDrop: !!monitor.canDrop(),
-        item : monitor.getItem(),
+        item: monitor.getItem(),
       }),
     }),
     [moveItem]
@@ -30,13 +30,19 @@ const ElementAddDropZone = ({ side, moveItem }: Props) => {
 
   return (
     <>
-    {canDrop && <Operator symbol={item.element.positive ? 'minus' : 'plus'} />}
-    <p
-      ref={drop}
-      className={`variable drop-zone ${canDrop ? 'can-drop' : ''} ${
-        isOver ? 'is-over' : ''
-      }`}
-    ></p></>
+      {side === Side.Right && canDrop && (
+        <Operator symbol={item.element.positive ? 'minus' : 'plus'} />
+      )}
+      <p
+        ref={drop}
+        className={`variable drop-zone ${canDrop ? 'can-drop' : ''} ${
+          isOver ? 'is-over' : ''
+        }`}
+      ></p>
+      {side === Side.Left && canDrop && (
+        <Operator symbol={item.element.positive ? 'minus' : 'plus'} />
+      )}
+    </>
   );
 };
 
