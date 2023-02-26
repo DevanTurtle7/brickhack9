@@ -67,7 +67,11 @@ const Toolbar = ({ equation, setEquation, touchEnabled }: Props) => {
         setEquation={setEquation}
       />
 
-      <HelpModal modalOpen={helpModalOpen} onCloseModal={closeHelpModal} />
+      <HelpModal
+        modalOpen={helpModalOpen}
+        onCloseModal={closeHelpModal}
+        setEquation={setEquation}
+      />
 
       <SettingsModal
         modalOpen={settingsModalOpen}

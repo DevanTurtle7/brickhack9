@@ -67,6 +67,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
           <ElementContainer
             element={element}
             index={index}
+            first={index === equation.left.length - 1}
             onSimplify={onSimplify}
             onSplitToggle={onSplitToggle}
             combineItems={combineItems}
@@ -83,6 +84,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
           <ElementContainer
             element={element}
             index={index}
+            first={index === 0}
             onSimplify={onSimplify}
             onSplitToggle={onSplitToggle}
             combineItems={combineItems}
