@@ -1,8 +1,8 @@
-import { Side } from './Equation';
+import Element from './Element';
 
 export interface VariableItem {
   index: number;
-  side: Side;
+  element: Element;
 }
 
 class Variable {

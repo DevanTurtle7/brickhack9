@@ -17,11 +17,13 @@ const HistoryModal = ({ modalOpen, onCloseModal, equation }: Props) => {
       current = current.nextState;
     }
 
-    const items = [<HistoryItem equation={current} />];
+    const items = [
+      <HistoryItem equation={current} key={equation.toString()} />,
+    ];
 
     while (current.prevState !== null) {
       current = current.prevState;
-      items.push(<HistoryItem equation={current} />);
+      items.push(<HistoryItem equation={current} key={equation.toString()} />);
     }
 
     return items;

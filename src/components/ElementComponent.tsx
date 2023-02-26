@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '../model/DragTypes';
 import Element from '../model/Element';
@@ -6,11 +5,9 @@ import Element from '../model/Element';
 interface Props {
   element: Element;
   index: number;
-  onDragChange: (isDragging: boolean) => void;
 }
 
-const ElementComponent = ({ element, index, onDragChange }: Props) => {
-  const side = element.side;
+const ElementComponent = ({ element, index }: Props) => {
   const symbol = index === 0 && !element.positive ? '-' : '';
   const variables = element.variables.reduce(
     (acc, variable) => acc + variable.type,
@@ -28,17 +25,13 @@ const ElementComponent = ({ element, index, onDragChange }: Props) => {
       canDrag: () => {
         return value !== '0';
       },
-      item: { index, side },
+      item: { index, element },
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
     }),
-    [value, index, side]
+    [value, index, element]
   );
-
-  useEffect(() => {
-    onDragChange(isDragging);
-  }, [isDragging, onDragChange]);
 
   return (
     <div className="variable">
