@@ -30,29 +30,24 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
     let newEquation = equation;
     // If they are on different sides move the element first
     if (item1.element.side !== item2.element.side) {
-      console.log(item1.element.side);
-      console.log(equation);
       const item1StartOnLeft = item1.element.side === Side.Left;
       newEquation = equation.moveVariableFromSide(
         item1.index,
         item1StartOnLeft
       );
-      console.log(newEquation);
-      console.log(item1);
       item1.index = item1StartOnLeft
-        ? newEquation.right.length
-        : newEquation.left.length;
+        ? newEquation.right.length - 1
+        : newEquation.left.length - 1;
       item1.element = item1StartOnLeft
         ? newEquation.right[item1.index]
         : newEquation.left[item1.index];
-      console.log(item1);
     }
 
     setEquation(
       newEquation.combine(
-        item1.index,
         item2.index,
-        item1.element.side === Side.Left
+        item1.index,
+        item2.element.side === Side.Left
       )
     );
   };
