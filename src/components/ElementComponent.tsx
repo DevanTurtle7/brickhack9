@@ -46,11 +46,11 @@ const ElementComponent = ({
   const [{ canDrop }, drop] = useDrop(
     () => ({
       accept: DragTypes.ELEMENT,
-      drop: (item: VariableItem) => combineItems({ index, element }, item),
+      drop: (item: VariableItem) => combineItems(item, { index, element }),
       canDrop: (item: VariableItem) => {
         return (
-          item.index !== index &&
-          item.element.side === element.side &&
+          (item.index !== index ||
+            (item.index === index && item.element.side !== element.side)) &&
           item.element.denominator === element.denominator &&
           item.element.equalsType(element)
         );

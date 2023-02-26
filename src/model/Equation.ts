@@ -57,11 +57,7 @@ class Equation {
     element.positive = !element.positive;
     element.side = element.side === Side.Left ? Side.Right : Side.Left;
 
-    if (fromLeft) {
-      toEquation.push(element);
-    } else {
-      toEquation.unshift(element);
-    }
+    toEquation.push(element);
 
     return newEquation;
   }

@@ -10,18 +10,19 @@ p {
   margin: 0;
 }
 
-.left, .right {
+.left,
+.right {
   display: flex;
-  flex-flow: row;
   align-items: center;
+  justify-content: flex-start;
 }
 
 .left {
-  justify-content: flex-end;
+  flex-flow: row-reverse;
 }
 
 .right {
-  justify-content: flex-start;
+  flex-flow: row;
 }
 
 .variable,
@@ -65,12 +66,12 @@ p {
   height: 50px;
   width: 40px;
   border-width: 4px;
-  margin-top: 4px
+  margin-top: 4px;
 }
 
 .variable.drop-zone.can-drop {
   border-style: dashed;
-  border-color: black
+  border-color: black;
 }
 
 .drop-zone:not(.can-drop) {
@@ -125,7 +126,7 @@ p {
 }
 
 .icon-button-disabled {
-  color: rgb(202, 202, 202)
+  color: rgb(202, 202, 202);
 }
 
 .history-modal {

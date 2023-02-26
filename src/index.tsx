@@ -10,7 +10,8 @@ const root = ReactDOM.createRoot(
 );
 
 function isTouchDevice() {
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  return false;
+  // return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
 
 root.render(
