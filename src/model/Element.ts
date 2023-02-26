@@ -37,6 +37,12 @@ class Element {
     this.denominator *= divisor;
   }
 
+  simplifyFraction() {
+    if (this.constant.value % this.denominator === 0) {
+      this.constant.value /= this.denominator;
+    }
+  }
+
   isNumber() {
     return this.variables.length === 0;
   }
@@ -60,7 +66,8 @@ class Element {
       this.constant.value,
       this.positive,
       this.side,
-      this.variables
+      this.variables,
+      this.denominator
     );
   }
 

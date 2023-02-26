@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '../model/DragTypes';
 import Element from '../model/Element';
-import { Side } from '../model/Equation';
 
 interface Props {
   element: Element;

@@ -46,6 +46,10 @@ p {
   border-color: #ffffff00;
   padding-left: 5px;
   padding-right: 5px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .variable.dragging {
