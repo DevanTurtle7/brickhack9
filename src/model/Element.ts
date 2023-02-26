@@ -65,13 +65,16 @@ class Element {
   }
 
   clone() {
-    return new Element(
+    const newElement = new Element(
       this.constant.value,
       this.positive,
       this.side,
       this.variables,
       this.denominator
     );
+    newElement.split = this.split;
+
+    return newElement;
   }
 
   getString() {

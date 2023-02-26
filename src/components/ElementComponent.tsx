@@ -9,6 +9,7 @@ interface Props {
   element: Element;
   index: number;
   onSimplify: (index: number, side: Side) => void;
+  onSplitToggle: (index: number, side: Side) => void;
   combineItems: CombineItemsType;
 }
 
@@ -16,6 +17,7 @@ const ElementComponent = ({
   element,
   index,
   onSimplify,
+  onSplitToggle,
   combineItems,
 }: Props) => {
   const symbol = index === 0 && !element.positive ? '-' : '';
@@ -65,9 +67,12 @@ const ElementComponent = ({
   );
 
   const onClick = () => {
-    console.log('click');
-    if (element.denominator === 1 && !element.isNumber()) {
-      element.split = !element.split;
+    if (element.denominator === 1) {
+      console.log('denom is 1');
+      if (!element.isNumber()) {
+        console.log('not num');
+        onSplitToggle(index, element.side);
+      }
     } else {
       onSimplify(index, element.side);
     }

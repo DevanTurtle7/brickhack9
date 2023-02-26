@@ -12,7 +12,6 @@ function App() {
   const x = new Element(1, true, Side.Left, [xVar]);
   const xVar2 = new Variable('x');
   const x2 = new Element(2, true, Side.Left, [xVar2]);
-  x2.split = true;
 
   const six = new Element(6, true, Side.Left);
   const three = new Element(3, false, Side.Right);
