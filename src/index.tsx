@@ -8,6 +8,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <DndProvider backend={HTML5Backend}>
     <App />
