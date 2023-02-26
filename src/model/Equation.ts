@@ -62,6 +62,17 @@ class Equation {
     return newEquation;
   }
 
+  divideSideBy(divisorIndex: number, fromSide: Side) {
+    const newEquation = this.getNextEquation();
+
+    const fromEquation =
+      fromSide === Side.Left ? newEquation.left : newEquation.right;
+    const toEquation =
+      fromSide === Side.Left ? newEquation.right : newEquation.left;
+
+    return newEquation;
+  }
+
   combine(index1: number, index2: number, left: boolean) {
     const newEquation = this.getNextEquation();
 

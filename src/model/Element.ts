@@ -7,12 +7,14 @@ class Element {
   positive: boolean;
   side: Side;
   variables: Variable[];
+  denominator: number;
 
   constructor(
     constant: number,
     positive: boolean,
     side: Side,
-    variables?: Variable[]
+    variables?: Variable[],
+    denominator?: number
   ) {
     this.constant = new Constant(constant);
     this.positive = positive;
@@ -22,6 +24,12 @@ class Element {
       this.variables = variables;
     } else {
       this.variables = [];
+    }
+
+    if (denominator !== undefined) {
+      this.denominator = denominator;
+    } else {
+      this.denominator = 1;
     }
   }
 
@@ -55,7 +63,7 @@ class Element {
   getString() {
     return (
       this.constant.value.toString() +
-      this.variables.map((variable) => variable.type)
+      this.variables.reduce((acc, variable) => acc + variable.type, '')
     );
   }
 }
