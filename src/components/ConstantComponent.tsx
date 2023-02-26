@@ -4,31 +4,30 @@ import Element from '../model/Element';
 
 interface Props {
   index: number;
-  variableIndex: number;
   element: Element;
 }
 
-const VariableComponent = ({ index, variableIndex, element }: Props) => {
+const ConstantComponent = ({ index, element }: Props) => {
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: DragTypes.DIVISOR,
       item: {
         index,
-        variableIndex: variableIndex,
-        isConstant: false,
+        isConstant: true,
         element,
       } as ConstantOrVariableItem,
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
     }),
-    [index, variableIndex, element]
+    [index, element]
   );
+
   return (
     <p ref={drag} className={`variable ${isDragging ? 'dragging' : ''}`}>
-      {element.variables[variableIndex].type}
+      {element.constant.value.toString()}
     </p>
   );
 };
 
-export default VariableComponent;
+export default ConstantComponent;

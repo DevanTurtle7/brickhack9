@@ -1,22 +1,21 @@
 import Equation, { Side } from '../model/Equation';
 import Operator from './Operator';
 import ElementContainer from './ElementContainer';
-import { VariableItem } from '../model/Variable';
 import ElementAddDropZone from './ElementAddDropZone';
+import { ElementItem } from '../model/Element';
+import { useDrop } from 'react-dnd';
+import { ConstantOrVariableItem, DragTypes } from '../model/DragTypes';
 
 interface Props {
   equation: Equation;
   setEquation: React.Dispatch<React.SetStateAction<Equation>>;
 }
 
-export type MoveItemType = (item: VariableItem) => void;
-export type CombineItemsType = (
-  item1: VariableItem,
-  item2: VariableItem
-) => void;
+export type MoveItemType = (item: ElementItem) => void;
+export type CombineItemsType = (item1: ElementItem, item2: ElementItem) => void;
 
 const EquationComponent = ({ equation, setEquation }: Props) => {
-  const moveItem = (item: VariableItem) => {
+  const moveItem = (item: ElementItem) => {
     setEquation(
       equation.moveVariableFromSide(item.index, item.element.side === Side.Left)
     );
@@ -26,7 +25,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
     setEquation(equation.simplifyElementFraction(index, side));
   };
 
-  const combineItems = (item1: VariableItem, item2: VariableItem) => {
+  const combineItems = (item1: ElementItem, item2: ElementItem) => {
     let newEquation = equation;
     // If they are on different sides move the element first
     if (item1.element.side !== item2.element.side) {
@@ -60,36 +59,101 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
     setEquation(equation.splitVariable(index, side));
   };
 
+  const divideSidesBy = (item: ConstantOrVariableItem) => {
+    // If item is a constant
+    if (item.isConstant) {
+      setEquation(equation.divideSidesBy(item.index, item.element.side));
+    } else {
+      console.log('dont support variables yet');
+    }
+  };
+
+  const [{ leftDivideIsOver, leftDivideCanDrop }, leftDivideDrop] = useDrop(
+    () => ({
+      accept: DragTypes.DIVISOR,
+      drop: (item: ConstantOrVariableItem) => divideSidesBy(item),
+      canDrop: (item: ConstantOrVariableItem) => {
+        return item.element.side !== Side.Left;
+      },
+
+      collect: (monitor) => ({
+        leftDivideIsOver: !!monitor.isOver(),
+        leftDivideCanDrop: !!monitor.canDrop(),
+      }),
+    }),
+    []
+  );
+
+  const [{ rightDivideIsOver, rightDivideCanDrop }, rightDivideDrop] = useDrop(
+    () => ({
+      accept: DragTypes.DIVISOR,
+      drop: (item: ConstantOrVariableItem) => divideSidesBy(item),
+      canDrop: (item: ConstantOrVariableItem) => {
+        return item.element.side !== Side.Right;
+      },
+
+      collect: (monitor) => ({
+        rightDivideIsOver: !!monitor.isOver(),
+        rightDivideCanDrop: !!monitor.canDrop(),
+      }),
+    }),
+    []
+  );
+
   return (
     <div className="equation">
-      <div className="left">
-        {equation.left.map((element, index) => (
-          <ElementContainer
-            element={element}
-            index={index}
-            onSimplify={onSimplify}
-            onSplitToggle={onSplitToggle}
-            combineItems={combineItems}
-            key={element.getString() + '-' + index + '-' + element.side}
-          />
-        ))}
-        <ElementAddDropZone side={Side.Left} moveItem={moveItem} />
+      <div>
+        <div className="left">
+          <div className={`${leftDivideCanDrop ? 'divisor' : ''}`}>
+            {equation.left.map((element, index) => (
+              <ElementContainer
+                element={element}
+                index={index}
+                onSimplify={onSimplify}
+                onSplitToggle={onSplitToggle}
+                combineItems={combineItems}
+                key={element.getString() + '-' + index + '-' + element.side}
+              />
+            ))}
+          </div>
+          <ElementAddDropZone side={Side.Left} moveItem={moveItem} />
+        </div>
+        <div className="left">
+          <p
+            ref={leftDivideDrop}
+            className={`variable drop-zone ${
+              leftDivideCanDrop ? 'can-drop' : ''
+            } ${leftDivideIsOver ? 'is-over' : ''}`}
+          ></p>
+        </div>
       </div>
       <div className="middle">
         <Operator symbol="equals" onClick={flipSides} />
       </div>
-      <div className="right">
-        {equation.right.map((element, index) => (
-          <ElementContainer
-            element={element}
-            index={index}
-            onSimplify={onSimplify}
-            onSplitToggle={onSplitToggle}
-            combineItems={combineItems}
-            key={element.getString() + '-' + index + '-' + element.side}
-          />
-        ))}
-        <ElementAddDropZone side={Side.Right} moveItem={moveItem} />
+      <div>
+        <div className="right">
+          <div className={`${rightDivideCanDrop ? 'divisor' : ''}`}>
+            {equation.right.map((element, index) => (
+              <ElementContainer
+                element={element}
+                index={index}
+                onSimplify={onSimplify}
+                onSplitToggle={onSplitToggle}
+                combineItems={combineItems}
+                key={element.getString() + '-' + index + '-' + element.side}
+              />
+            ))}
+          </div>
+          <ElementAddDropZone side={Side.Right} moveItem={moveItem} />
+        </div>
+        <div className="right">
+          <p
+            ref={rightDivideDrop}
+            className={`variable right drop-zone ${
+              rightDivideCanDrop ? 'can-drop' : ''
+            } ${rightDivideIsOver ? 'is-over' : ''}`}
+          ></p>
+        </div>
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
 import { useDrag, useDrop } from 'react-dnd';
 import { DragTypes } from '../model/DragTypes';
-import Element from '../model/Element';
+import Element, { ElementItem } from '../model/Element';
 import { Side } from '../model/Equation';
-import { VariableItem } from '../model/Variable';
 import { CombineItemsType } from './EquationComponent';
 
 interface Props {
@@ -37,7 +36,7 @@ const ElementComponent = ({
       canDrag: () => {
         return value !== '0';
       },
-      item: { index, element },
+      item: { index, element } as ElementItem,
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
@@ -48,8 +47,8 @@ const ElementComponent = ({
   const [{ canDrop }, drop] = useDrop(
     () => ({
       accept: DragTypes.ELEMENT,
-      drop: (item: VariableItem) => combineItems(item, { index, element }),
-      canDrop: (item: VariableItem) => {
+      drop: (item: ElementItem) => combineItems(item, { index, element }),
+      canDrop: (item: ElementItem) => {
         return (
           (item.index !== index ||
             (item.index === index && item.element.side !== element.side)) &&

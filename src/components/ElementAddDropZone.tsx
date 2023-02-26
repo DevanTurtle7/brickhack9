@@ -1,7 +1,7 @@
 import { useDrop } from 'react-dnd';
 import { DragTypes } from '../model/DragTypes';
+import { ElementItem } from '../model/Element';
 import { Side } from '../model/Equation';
-import { VariableItem } from '../model/Variable';
 import { MoveItemType } from './EquationComponent';
 import Operator from './Operator';
 
@@ -14,8 +14,8 @@ const ElementAddDropZone = ({ side, moveItem }: Props) => {
   const [{ isOver, canDrop, item }, drop] = useDrop(
     () => ({
       accept: DragTypes.ELEMENT,
-      drop: (item: VariableItem) => moveItem(item),
-      canDrop: (item: VariableItem) => {
+      drop: (item: ElementItem) => moveItem(item),
+      canDrop: (item: ElementItem) => {
         return item.element.side !== side;
       },
 

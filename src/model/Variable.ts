@@ -1,12 +1,5 @@
-import Element from './Element';
-
-export interface VariableItem {
-  index: number;
-  element: Element;
-}
-
 class Variable {
-  type: any;
+  type: string;
 
   constructor(type: string) {
     this.type = type;

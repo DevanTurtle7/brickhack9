@@ -2,6 +2,11 @@ import Constant from './Constant';
 import { Side } from './Equation';
 import Variable from './Variable';
 
+export interface ElementItem {
+  index: number;
+  element: Element;
+}
+
 class Element {
   constant: Constant;
   positive: boolean;

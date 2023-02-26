@@ -4,6 +4,7 @@ import ElementComponent from './ElementComponent';
 import { Side } from '../model/Equation';
 import { CombineItemsType } from './EquationComponent';
 import VariableComponent from './VariableComponent';
+import ConstantComponent from './ConstantComponent';
 
 interface Props {
   element: Element;
@@ -24,51 +25,58 @@ const ElementContainer = ({
     onSplitToggle(index, element.side);
   };
 
+  let splitVariables = element.split
+    ? element.variables.reduce(
+        (acc, variable, variableIndex) => {
+          acc.push(
+            <VariableComponent
+              index={index}
+              variableIndex={variableIndex}
+              element={element}
+              key={`var-${element.getString()}-${variableIndex + 1}-${
+                variable.type
+              }`}
+            />
+          );
+
+          if (variableIndex !== element.variables.length - 1) {
+            acc.push(
+              <Operator
+                symbol="multiply"
+                onClick={onClick}
+                key={`mult-${element.getString()}-${variableIndex + 1}`}
+              />
+            );
+          }
+
+          return acc;
+        },
+        element.constant.value === 1
+          ? []
+          : [
+              <ConstantComponent
+                index={index}
+                element={element}
+                key={`var-${element.getString()}-0`}
+              />,
+              <Operator
+                symbol="multiply"
+                onClick={onClick}
+                key={`mult-${element.getString()}-0`}
+              />,
+            ]
+      )
+    : undefined;
+
+  if (splitVariables !== undefined && element.side === Side.Left) {
+    splitVariables = splitVariables.reverse();
+  }
+
   return (
     <>
       {index !== 0 && <Operator symbol={element.positive ? 'plus' : 'minus'} />}
       {element.split ? (
-        <>
-          {element.variables
-            .reduce(
-              (acc, variable, variableIndex) => {
-                acc.push(
-                  <VariableComponent
-                    value={variable.type}
-                    key={`var-${element.getString()}-${variableIndex + 1}-${
-                      variable.type
-                    }`}
-                  />
-                );
-
-                if (variableIndex !== element.variables.length - 1) {
-                  acc.push(
-                    <Operator
-                      symbol="multiply"
-                      onClick={onClick}
-                      key={`mult-${element.getString()}-${variableIndex + 1}`}
-                    />
-                  );
-                }
-
-                return acc;
-              },
-              element.constant.value === 1
-                ? []
-                : [
-                    <VariableComponent
-                      value={element.constant.value.toString()}
-                      key={`var-${element.getString()}-0`}
-                    />,
-                    <Operator
-                      symbol="multiply"
-                      onClick={onClick}
-                      key={`mult-${element.getString()}-0`}
-                    />,
-                  ]
-            )
-            .reverse()}
-        </>
+        splitVariables
       ) : (
         <ElementComponent
           element={element}
