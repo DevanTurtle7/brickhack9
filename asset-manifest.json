@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/mathflow/static/css/main.81db1e45.css",
-    "main.js": "/mathflow/static/js/main.0e58a16e.js",
-    "index.html": "/mathflow/index.html",
-    "main.81db1e45.css.map": "/mathflow/static/css/main.81db1e45.css.map",
-    "main.0e58a16e.js.map": "/mathflow/static/js/main.0e58a16e.js.map"
+    "main.css": "/static/css/main.81db1e45.css",
+    "main.js": "/static/js/main.0e58a16e.js",
+    "index.html": "/index.html",
+    "main.81db1e45.css.map": "/static/css/main.81db1e45.css.map",
+    "main.0e58a16e.js.map": "/static/js/main.0e58a16e.js.map"
   },
   "entrypoints": [
     "static/css/main.81db1e45.css",
