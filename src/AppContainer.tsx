@@ -14,8 +14,6 @@ const AppContainer = () => {
     touchEnabled = value === 'true' ? true : false;
   }
 
-  console.log(touchEnabled);
-
   return (
     <>
       {touchEnabled && (

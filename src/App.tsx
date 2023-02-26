@@ -25,12 +25,6 @@ function App({ touchEnabled }: Props) {
 
   const [equation, setEquation] = useState(new Equation(left, right));
 
-  const divide = () => {
-    setEquation(equation.divideSidesBy(0, Side.Left));
-  };
-
-  console.log(touchEnabled);
-
   return (
     <div className="App">
       <Toolbar
@@ -38,12 +32,6 @@ function App({ touchEnabled }: Props) {
         setEquation={setEquation}
         touchEnabled={touchEnabled}
       />
-      <button
-        onClick={divide}
-        style={{ position: 'absolute', top: '0px', left: '0px' }}
-      >
-        Divide
-      </button>
       <div className="workspace">
         <EquationComponent equation={equation} setEquation={setEquation} />
       </div>

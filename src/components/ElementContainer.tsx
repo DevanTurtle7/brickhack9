@@ -76,7 +76,9 @@ const ElementContainer = ({
 
   return (
     <>
-      {index !== 0 && <Operator symbol={element.positive ? 'plus' : 'minus'} />}
+      {!first && element.side === Side.Right && (
+        <Operator symbol={element.positive ? 'plus' : 'minus'} />
+      )}
       {element.split ? (
         splitVariables
       ) : (
@@ -88,6 +90,9 @@ const ElementContainer = ({
           onSplitToggle={onSplitToggle}
           combineItems={combineItems}
         />
+      )}
+      {!first && element.side === Side.Left && (
+        <Operator symbol={element.positive ? 'plus' : 'minus'} />
       )}
     </>
   );
