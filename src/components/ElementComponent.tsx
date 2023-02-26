@@ -9,6 +9,7 @@ interface Props {
   element: Element;
   index: number;
   onSimplify: (index: number, side: Side) => void;
+  onSplitToggle: (index: number, side: Side) => void;
   combineItems: CombineItemsType;
 }
 
@@ -16,6 +17,7 @@ const ElementComponent = ({
   element,
   index,
   onSimplify,
+  onSplitToggle,
   combineItems,
 }: Props) => {
   const symbol = index === 0 && !element.positive ? '-' : '';
@@ -25,7 +27,7 @@ const ElementComponent = ({
   );
   const value =
     symbol +
-    (element.variables.length > 0 && element.constant.value === 1
+    (!element.isNumber() && element.constant.value === 1
       ? variables
       : element.constant.value + variables);
 
@@ -65,7 +67,13 @@ const ElementComponent = ({
   );
 
   const onClick = () => {
-    onSimplify(index, element.side);
+    if (element.denominator === 1) {
+      if (!element.isNumber()) {
+        onSplitToggle(index, element.side);
+      }
+    } else {
+      onSimplify(index, element.side);
+    }
   };
 
   const draggingOrDroppingRef = canDrop ? drop : drag;

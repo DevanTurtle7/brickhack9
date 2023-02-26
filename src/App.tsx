@@ -22,7 +22,7 @@ function App() {
   const [equation, setEquation] = useState(new Equation(left, right));
 
   const divide = () => {
-    setEquation(equation.divideSidesBy(3));
+    setEquation(equation.divideSidesBy(0, Side.Left));
   };
 
   return (

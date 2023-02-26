@@ -1,5 +1,5 @@
 interface Props {
-  symbol: 'plus' | 'minus' | 'equals';
+  symbol: 'plus' | 'minus' | 'equals' | 'multiply';
   onClick?: () => void;
 }
 
@@ -11,6 +11,8 @@ const Operator = ({ symbol, onClick = () => {} }: Props) => {
       return '-';
     } else if (symbol === 'equals') {
       return '=';
+    } else if (symbol === 'multiply') {
+      return '*';
     }
   };
 

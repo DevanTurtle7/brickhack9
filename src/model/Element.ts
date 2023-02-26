@@ -8,6 +8,7 @@ class Element {
   side: Side;
   variables: Variable[];
   denominator: number;
+  split: boolean;
 
   constructor(
     constant: number,
@@ -19,6 +20,7 @@ class Element {
     this.constant = new Constant(constant);
     this.positive = positive;
     this.side = side;
+    this.split = false;
 
     if (variables) {
       this.variables = variables;
@@ -63,13 +65,16 @@ class Element {
   }
 
   clone() {
-    return new Element(
+    const newElement = new Element(
       this.constant.value,
       this.positive,
       this.side,
       this.variables,
       this.denominator
     );
+    newElement.split = this.split;
+
+    return newElement;
   }
 
   getString() {

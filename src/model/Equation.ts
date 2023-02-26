@@ -62,11 +62,17 @@ class Equation {
     return newEquation;
   }
 
-  divideSidesBy(divisor: number) {
+  divideSidesBy(index: number, side: Side) {
     const newEquation = this.getNextEquation();
+    const eqSide = side === Side.Left ? newEquation.left : newEquation.right;
+    const divisor = eqSide[index].constant.value;
+    eqSide[index].split = false;
 
     newEquation.left.forEach((element) => element.divideBy(divisor));
     newEquation.right.forEach((element) => element.divideBy(divisor));
+
+    // Simplify the divisor
+    eqSide[index].simplifyFraction();
 
     return newEquation;
   }
@@ -113,6 +119,18 @@ class Equation {
     };
     newEquation.left = newEquation.right.map(flip);
     newEquation.right = temp.map(flip);
+
+    return newEquation;
+  };
+
+  splitVariable = (index: number, side: Side) => {
+    const newEquation = this.getNextEquation();
+
+    const equation = side === Side.Left ? newEquation.left : newEquation.right;
+
+    if (!equation[index].isNumber()) {
+      equation[index].split = !equation[index].split;
+    }
 
     return newEquation;
   };

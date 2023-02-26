@@ -56,6 +56,10 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
     setEquation(equation.flipSides());
   };
 
+  const onSplitToggle = (index: number, side: Side) => {
+    setEquation(equation.splitVariable(index, side));
+  };
+
   return (
     <div className="equation">
       <div className="left">
@@ -64,6 +68,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
             element={element}
             index={index}
             onSimplify={onSimplify}
+            onSplitToggle={onSplitToggle}
             combineItems={combineItems}
             key={element.getString() + '-' + index + '-' + element.side}
           />
@@ -79,6 +84,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
             element={element}
             index={index}
             onSimplify={onSimplify}
+            onSplitToggle={onSplitToggle}
             combineItems={combineItems}
             key={element.getString() + '-' + index + '-' + element.side}
           />
