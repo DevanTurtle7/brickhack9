@@ -5,10 +5,6 @@ import Equation, { Side } from './model/Equation';
 import Variable from './model/Variable';
 import Element from './model/Element';
 
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { TouchBackend } from 'react-dnd-touch-backend';
-
 import './styles/index.css';
 
 interface Props {
@@ -36,24 +32,22 @@ function App({ touchEnabled }: Props) {
   console.log(touchEnabled);
 
   return (
-    <DndProvider backend={true ? TouchBackend : HTML5Backend}>
-      <div className="App">
-        <Toolbar
-          equation={equation}
-          setEquation={setEquation}
-          touchEnabled={touchEnabled}
-        />
-        <button
-          onClick={divide}
-          style={{ position: 'absolute', top: '0px', left: '0px' }}
-        >
-          Divide
-        </button>
-        <div className="workspace">
-          <EquationComponent equation={equation} setEquation={setEquation} />
-        </div>
+    <div className="App">
+      <Toolbar
+        equation={equation}
+        setEquation={setEquation}
+        touchEnabled={touchEnabled}
+      />
+      <button
+        onClick={divide}
+        style={{ position: 'absolute', top: '0px', left: '0px' }}
+      >
+        Divide
+      </button>
+      <div className="workspace">
+        <EquationComponent equation={equation} setEquation={setEquation} />
       </div>
-    </DndProvider>
+    </div>
   );
 }
 
