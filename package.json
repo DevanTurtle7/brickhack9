@@ -1,7 +1,7 @@
 {
   "name": "mathflow",
   "version": "0.1.0",
-  "homepage": "https://MathFlow-tech.github.io/mathflow",
+  "homepage": "https://mathflow-tech.github.io",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",
