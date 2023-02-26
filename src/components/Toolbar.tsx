@@ -1,22 +1,39 @@
 import { useState } from 'react';
-import { MdUndo, MdRedo, MdHistory } from 'react-icons/md';
+import {
+  MdUndo,
+  MdRedo,
+  MdHistory,
+  MdSettings,
+  MdHelpOutline,
+} from 'react-icons/md';
 import Equation from '../model/Equation';
+import HelpModal from './HelpModal';
 import HistoryModal from './HistoryModal';
+import SettingsModal from './SettingsModal';
 
 interface Props {
   equation: Equation;
   setEquation: React.Dispatch<React.SetStateAction<Equation>>;
+  touchEnabled: boolean;
+  setTouchEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Toolbar = ({ equation, setEquation }: Props) => {
-  const [modalOpen, setModalOpen] = useState(false);
+const Toolbar = ({
+  equation,
+  setEquation,
+  touchEnabled,
+  setTouchEnabled,
+}: Props) => {
+  const [historyModalOpen, setHistoryModalOpen] = useState(false);
+  const [settingsModalOpen, setSettingsModalOpen] = useState(false);
+  const [helpModalOpen, setHelpModalOpen] = useState(false);
 
-  const openModal = () => {
-    setModalOpen(true);
+  const openHistoryModal = () => {
+    setHistoryModalOpen(true);
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeHistoryModal = () => {
+    setHistoryModalOpen(false);
   };
 
   const undo = () => {
@@ -31,14 +48,43 @@ const Toolbar = ({ equation, setEquation }: Props) => {
     }
   };
 
+  const closeSettingsModal = () => {
+    setSettingsModalOpen(false);
+  };
+
+  const openSettingsModal = () => {
+    setSettingsModalOpen(true);
+  };
+
+  const closeHelpModal = () => {
+    setHelpModalOpen(false);
+  };
+
+  const openHelpModal = () => {
+    setHelpModalOpen(true);
+  };
+
   return (
     <>
       <HistoryModal
-        modalOpen={modalOpen}
-        onCloseModal={closeModal}
+        modalOpen={historyModalOpen}
+        onCloseModal={closeHistoryModal}
         equation={equation}
         setEquation={setEquation}
       />
+
+      <HelpModal modalOpen={helpModalOpen} onCloseModal={closeHelpModal} />
+
+      <SettingsModal
+        modalOpen={settingsModalOpen}
+        onCloseModal={closeSettingsModal}
+        touchEnabled={touchEnabled}
+        setTouchEnabled={setTouchEnabled}
+      />
+
+      <div id="help-container">
+        <MdHelpOutline className={'icon-button'} onClick={openHelpModal} />
+      </div>
 
       <div className="toolbar">
         <MdUndo
@@ -48,7 +94,7 @@ const Toolbar = ({ equation, setEquation }: Props) => {
           }`}
         />
         <MdHistory
-          onClick={openModal}
+          onClick={openHistoryModal}
           className="icon-button icon-button-enabled"
         />
         <MdRedo
@@ -57,6 +103,10 @@ const Toolbar = ({ equation, setEquation }: Props) => {
             equation.nextState !== null ? 'enabled' : 'disabled'
           }`}
         />
+      </div>
+
+      <div id="settings-container">
+        <MdSettings className={'icon-button'} onClick={openSettingsModal} />
       </div>
     </>
   );

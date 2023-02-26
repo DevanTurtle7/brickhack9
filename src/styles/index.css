@@ -109,27 +109,43 @@ p {
 .toolbar {
   width: fit-content;
   position: absolute;
-  top: 20px;
   left: 50%;
   transform: translate(-50%, 0px);
 }
 
-.toolbar .icon-button {
+.toolbar, #settings-container, #help-container {
+  position: absolute;
+  top: 20px;
+}
+
+#settings-container {
+  right: 30px;
+}
+
+#help-container {
+  left: 30px;
+}
+
+.icon-button {
   font-size: 34px;
+  cursor: pointer;
+}
+
+.toolbar .icon-button {
   margin-left: 18px;
   margin-right: 18px;
 }
 
 .icon-button-enabled {
   color: black;
-  cursor: pointer;
 }
 
 .icon-button-disabled {
   color: rgb(202, 202, 202);
+  cursor: default;
 }
 
-.history-modal {
+.modal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -141,16 +157,16 @@ p {
   border-radius: 8px;
 }
 
-.history-modal .content {
+.modal .content {
   display: flex;
   flex-flow: column;
 }
 
-.history-modal .content h2 {
+.modal .content h2 {
   margin-top: 0px;
 }
 
-.history-modal .footer {
+.modal .footer {
   display: flex;
   flex-flow: row;
   justify-content: flex-end;
@@ -189,4 +205,8 @@ p {
 
 .history-item-current {
   background-color: #1976d22b;
+}
+
+.operator-multiply {
+  cursor: pointer;
 }
