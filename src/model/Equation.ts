@@ -108,6 +108,7 @@ class Equation {
     const temp = newEquation.left;
     const flip = (element: Element) => {
       element.positive = !element.positive;
+      element.side = element.side === Side.Left ? Side.Right : Side.Left;
       return element;
     };
     newEquation.left = newEquation.right.map(flip);
