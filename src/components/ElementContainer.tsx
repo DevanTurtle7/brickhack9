@@ -21,8 +21,6 @@ const ElementContainer = ({
   combineItems,
 }: Props) => {
   const onClick = () => {
-    console.log('clicky');
-    console.log(element.split);
     onSplitToggle(index, element.side);
   };
 
@@ -34,9 +32,23 @@ const ElementContainer = ({
           {element.variables
             .reduce(
               (acc, variable, variableIndex) => {
-                acc.push(<VariableComponent value={variable.type} />);
+                acc.push(
+                  <VariableComponent
+                    value={variable.type}
+                    key={`var-${element.getString()}-${variableIndex + 1}-${
+                      variable.type
+                    }`}
+                  />
+                );
+
                 if (variableIndex !== element.variables.length - 1) {
-                  acc.push(<Operator symbol="multiply" onClick={onClick} />);
+                  acc.push(
+                    <Operator
+                      symbol="multiply"
+                      onClick={onClick}
+                      key={`mult-${element.getString()}-${variableIndex + 1}`}
+                    />
+                  );
                 }
 
                 return acc;
@@ -46,8 +58,13 @@ const ElementContainer = ({
                 : [
                     <VariableComponent
                       value={element.constant.value.toString()}
+                      key={`var-${element.getString()}-0`}
                     />,
-                    <Operator symbol="multiply" onClick={onClick} />,
+                    <Operator
+                      symbol="multiply"
+                      onClick={onClick}
+                      key={`mult-${element.getString()}-0`}
+                    />,
                   ]
             )
             .reverse()}

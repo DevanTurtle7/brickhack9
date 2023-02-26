@@ -57,12 +57,8 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
   };
 
   const onSplitToggle = (index: number, side: Side) => {
-    console.log(equation.left[index].split);
-    const newEq = equation.splitVariable(index, side);
-    setEquation(newEq);
+    setEquation(equation.splitVariable(index, side));
   };
-
-  console.log(equation);
 
   return (
     <div className="equation">

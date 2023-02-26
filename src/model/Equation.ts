@@ -122,11 +122,7 @@ class Equation {
 
     const equation = side === Side.Left ? newEquation.left : newEquation.right;
 
-    console.log(equation[index].split);
-    console.log('yo');
     if (!equation[index].isNumber()) {
-      console.log('is not number');
-      console.log(equation[index].split);
       equation[index].split = !equation[index].split;
     }
 

@@ -68,9 +68,7 @@ const ElementComponent = ({
 
   const onClick = () => {
     if (element.denominator === 1) {
-      console.log('denom is 1');
       if (!element.isNumber()) {
-        console.log('not num');
         onSplitToggle(index, element.side);
       }
     } else {
