@@ -35,7 +35,7 @@ const HistoryModal = ({
         equation={current}
         onJumpTo={onJumpTo}
         current={currentIndex === 0}
-        key={equation.toString()}
+        key={equation.toString() + ':0'}
       />,
     ];
 
@@ -48,7 +48,7 @@ const HistoryModal = ({
           equation={current}
           onJumpTo={onJumpTo}
           current={currentIndex === index}
-          key={equation.toString()}
+          key={equation.toString() + ':' + index}
         />
       );
       index++;
