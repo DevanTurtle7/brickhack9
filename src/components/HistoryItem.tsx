@@ -1,11 +1,13 @@
+import { Button } from '@mui/material';
 import Element from '../model/Element';
 import Equation from '../model/Equation';
 
 interface Props {
   equation: Equation;
+  onJumpTo: (equation: Equation) => void;
 }
 
-const HistoryItem = ({equation}: Props) => {
+const HistoryItem = ({ equation, onJumpTo }: Props) => {
   const formatSide = (elements: Element[]) =>
     elements.map((element, index) => {
       const elements = element.variables.reduce(
@@ -25,12 +27,21 @@ const HistoryItem = ({equation}: Props) => {
       }
     });
 
+  const onClick = () => {
+    onJumpTo(equation);
+  };
+
   return (
-    <p>
-      {formatSide(equation.left)}
-      {' = '}
-      {formatSide(equation.right)}
-    </p>
+    <div className="history-item">
+      <p>
+        {formatSide(equation.left)}
+        {' = '}
+        {formatSide(equation.right)}
+      </p>
+      <Button variant="text" onClick={onClick}>
+        Jump To
+      </Button>
+    </div>
   );
 };
 

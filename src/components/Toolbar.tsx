@@ -4,14 +4,11 @@ import Equation from '../model/Equation';
 import HistoryModal from './HistoryModal';
 
 interface Props {
-  onUndo: () => void;
-  onRedo: () => void;
-  canUndo: boolean;
-  canRedo: boolean;
   equation: Equation;
+  setEquation: React.Dispatch<React.SetStateAction<Equation>>;
 }
 
-const Toolbar = ({ onUndo, onRedo, canUndo, canRedo, equation }: Props) => {
+const Toolbar = ({ equation, setEquation }: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -22,19 +19,32 @@ const Toolbar = ({ onUndo, onRedo, canUndo, canRedo, equation }: Props) => {
     setModalOpen(false);
   };
 
+  const undo = () => {
+    if (equation.prevState) {
+      setEquation(equation.prevState);
+    }
+  };
+
+  const redo = () => {
+    if (equation.nextState) {
+      setEquation(equation.nextState);
+    }
+  };
+
   return (
     <>
       <HistoryModal
         modalOpen={modalOpen}
         onCloseModal={closeModal}
         equation={equation}
+        setEquation={setEquation}
       />
 
       <div className="toolbar">
         <MdUndo
-          onClick={onUndo}
+          onClick={undo}
           className={`icon-button icon-button-${
-            canUndo ? 'enabled' : 'disabled'
+            equation.prevState !== null ? 'enabled' : 'disabled'
           }`}
         />
         <MdHistory
@@ -42,9 +52,9 @@ const Toolbar = ({ onUndo, onRedo, canUndo, canRedo, equation }: Props) => {
           className="icon-button icon-button-enabled"
         />
         <MdRedo
-          onClick={onRedo}
+          onClick={redo}
           className={`icon-button icon-button-${
-            canRedo ? 'enabled' : 'disabled'
+            equation.nextState !== null ? 'enabled' : 'disabled'
           }`}
         />
       </div>

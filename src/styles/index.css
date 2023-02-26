@@ -154,3 +154,20 @@ p {
   width: 100%;
   background-color: black;
 }
+
+.history-item {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.history-items {
+  max-height: 200px;
+  overflow: scroll;
+  margin-bottom: 30px;
+  padding-right: 10px;
+  padding-left: 10px;
+}

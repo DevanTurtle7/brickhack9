@@ -21,31 +21,13 @@ function App() {
 
   const [equation, setEquation] = useState(new Equation(left, right));
 
-  const undo = () => {
-    if (equation.prevState) {
-      setEquation(equation.prevState);
-    }
-  };
-
-  const redo = () => {
-    if (equation.nextState) {
-      setEquation(equation.nextState);
-    }
-  };
-
   const divide = () => {
     setEquation(equation.divideSidesBy(3));
   };
 
   return (
     <div className="App">
-      <Toolbar
-        onUndo={undo}
-        onRedo={redo}
-        canUndo={!!equation.prevState}
-        canRedo={!!equation.nextState}
-        equation={equation}
-      />
+      <Toolbar equation={equation} setEquation={setEquation} />
       <button onClick={divide}>Divide</button>
       <div className="workspace">
         <EquationComponent equation={equation} setEquation={setEquation} />
