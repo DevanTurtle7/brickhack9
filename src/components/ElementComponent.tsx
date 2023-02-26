@@ -8,6 +8,7 @@ import { CombineItemsType } from './EquationComponent';
 interface Props {
   element: Element;
   index: number;
+  first: boolean;
   onSimplify: (index: number, side: Side) => void;
   onSplitToggle: (index: number, side: Side) => void;
   combineItems: CombineItemsType;
@@ -16,11 +17,12 @@ interface Props {
 const ElementComponent = ({
   element,
   index,
+  first,
   onSimplify,
   onSplitToggle,
   combineItems,
 }: Props) => {
-  const symbol = index === 0 && !element.positive ? '-' : '';
+  const symbol = !element.positive && first ? '-' : '';
   const variables = element.variables.reduce(
     (acc, variable) => acc + variable.type,
     ''
