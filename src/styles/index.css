@@ -6,6 +6,10 @@ body {
   overflow: hidden;
 }
 
+p {
+  margin: 0;
+}
+
 .variable,
 .operator {
   width: fit-content;
@@ -22,20 +26,36 @@ body {
   float: left;
 }
 
+.variable {
+  border-width: 4px;
+  border-style: solid;
+  border-color: #ffffff00;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .variable.dragging {
-  color: blue;
+  border-style: dashed;
+  color: #ffffff00;
+  border-color: black;
+  height: 50px;
+  margin-top: 4px;
+}
+
+.variable.drop-zone {
+  height: 50px;
+  width: 40px;
+  border-width: 4px;
+  margin-top: 4px
 }
 
 .variable.drop-zone.can-drop {
-  color: yellow;
+  border-style: dashed;
+  border-color: black
 }
 
 .drop-zone:not(.can-drop) {
   visibility: hidden;
-}
-
-.variable.drop-zone.is-over {
-  color: green;
 }
 
 .operator {

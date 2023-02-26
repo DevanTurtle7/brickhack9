@@ -26,7 +26,7 @@ class Equation {
     equation.splice(to, 0, element);
 
     if (equation.length === 0) {
-      equation.push(new Element(0, true));
+      equation.push(new Element(0, true, left ? Side.Left : Side.Right));
     }
 
     return newEquation;
@@ -40,7 +40,9 @@ class Equation {
     const element = fromEquation.splice(fromIndex, 1)[0];
 
     if (fromEquation.length === 0) {
-      fromEquation.push(new Element(0, true));
+      fromEquation.push(
+        new Element(0, true, fromLeft ? Side.Left : Side.Right)
+      );
     }
 
     if (
@@ -53,6 +55,7 @@ class Equation {
 
     // Change positivity when moving sides
     element.positive = !element.positive;
+    element.side = element.side === Side.Left ? Side.Right : Side.Left;
 
     toEquation.splice(toEquation.length, 0, element);
 

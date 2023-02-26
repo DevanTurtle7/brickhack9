@@ -14,7 +14,10 @@ const ElementAddDropZone = ({ side, moveItem }: Props) => {
     () => ({
       accept: DragTypes.ELEMENT,
       drop: (item: VariableItem) => moveItem(item),
-      canDrop: (item: VariableItem) => item.side !== side,
+      canDrop: (item: VariableItem) => {
+        return item.side !== side;
+      },
+
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
         canDrop: !!monitor.canDrop(),
@@ -29,9 +32,7 @@ const ElementAddDropZone = ({ side, moveItem }: Props) => {
       className={`variable drop-zone ${canDrop ? 'can-drop' : ''} ${
         isOver ? 'is-over' : ''
       }`}
-    >
-      ☐
-    </p>
+    ></p>
   );
 };
 
