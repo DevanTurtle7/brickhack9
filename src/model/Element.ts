@@ -1,14 +1,22 @@
 import Constant from './Constant';
+import { Side } from './Equation';
 import Variable from './Variable';
 
 class Element {
   constant: Constant;
   positive: boolean;
+  side: Side;
   variables: Variable[];
 
-  constructor(constant: number, positive: boolean, variables?: Variable[]) {
+  constructor(
+    constant: number,
+    positive: boolean,
+    side: Side,
+    variables?: Variable[]
+  ) {
     this.constant = new Constant(constant);
     this.positive = positive;
+    this.side = side;
 
     if (variables) {
       this.variables = variables;
@@ -36,7 +44,12 @@ class Element {
   }
 
   clone() {
-    return new Element(this.constant.value, this.positive, this.variables);
+    return new Element(
+      this.constant.value,
+      this.positive,
+      this.side,
+      this.variables
+    );
   }
 
   getString() {
