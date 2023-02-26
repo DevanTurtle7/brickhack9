@@ -89,7 +89,7 @@ const ElementComponent = ({
         {element.denominator !== 1 && (
           <>
             <div className="divisor-line" />
-            <p>{element.denominator}</p>
+            <p>{element.denominatorAsString()}</p>
           </>
         )}
       </div>

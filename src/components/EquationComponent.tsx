@@ -63,8 +63,16 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
     // If item is a constant
     if (item.isConstant) {
       setEquation(equation.divideSidesBy(item.index, item.element.side));
-    } else {
-      console.log('dont support variables yet');
+    }
+    // If item is a variable
+    else if (!item.isConstant && item.variableIndex !== undefined) {
+      setEquation(
+        equation.divideSidesByVariable(
+          item.index,
+          item.variableIndex,
+          item.element.side
+        )
+      );
     }
   };
 
@@ -81,7 +89,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
         leftDivideCanDrop: !!monitor.canDrop(),
       }),
     }),
-    []
+    [divideSidesBy]
   );
 
   const [{ rightDivideIsOver, rightDivideCanDrop }, rightDivideDrop] = useDrop(
@@ -97,7 +105,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
         rightDivideCanDrop: !!monitor.canDrop(),
       }),
     }),
-    []
+    [divideSidesBy]
   );
 
   return (
@@ -110,7 +118,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
                 element={element}
                 index={index}
                 first={index === equation.left.length - 1}
-            onSimplify={onSimplify}
+                onSimplify={onSimplify}
                 onSplitToggle={onSplitToggle}
                 combineItems={combineItems}
                 key={element.getString() + '-' + index + '-' + element.side}
@@ -139,7 +147,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
                 element={element}
                 index={index}
                 first={index === 0}
-            onSimplify={onSimplify}
+                onSimplify={onSimplify}
                 onSplitToggle={onSplitToggle}
                 combineItems={combineItems}
                 key={element.getString() + '-' + index + '-' + element.side}

@@ -77,6 +77,21 @@ class Equation {
     return newEquation;
   }
 
+  divideSidesByVariable(index: number, variableIndex: number, side: Side) {
+    const newEquation = this.getNextEquation();
+    const eqSide = side === Side.Left ? newEquation.left : newEquation.right;
+    const divisor = eqSide[index].variables[variableIndex];
+    eqSide[index].split = false;
+
+    newEquation.left.forEach((element) => element.divideByVariable(divisor));
+    newEquation.right.forEach((element) => element.divideByVariable(divisor));
+
+    // Simplify the divisor
+    eqSide[index].simplifyFraction();
+
+    return newEquation;
+  }
+
   simplifyElementFraction(index: number, side: Side) {
     const newEquation = this.getNextEquation();
     const equation = side === Side.Left ? newEquation.left : newEquation.right;

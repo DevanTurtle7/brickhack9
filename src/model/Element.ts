@@ -12,7 +12,7 @@ class Element {
   positive: boolean;
   side: Side;
   variables: Variable[];
-  denominator: number;
+  denominator: Variable | number;
   split: boolean;
 
   constructor(
@@ -20,7 +20,7 @@ class Element {
     positive: boolean,
     side: Side,
     variables?: Variable[],
-    denominator?: number
+    denominator?: number | Variable
   ) {
     this.constant = new Constant(constant);
     this.positive = positive;
@@ -40,14 +40,39 @@ class Element {
     }
   }
 
+  denominatorAsString() {
+    if (typeof this.denominator === 'number') {
+      return this.denominator.toString();
+    } else {
+      return (this.denominator as Variable).type;
+    }
+  }
+
   divideBy(divisor: number) {
-    this.denominator *= divisor;
+    if (typeof this.denominator === 'number') {
+      this.denominator *= divisor;
+    }
+  }
+
+  divideByVariable(variable: Variable) {
+    this.denominator = variable;
   }
 
   simplifyFraction() {
-    if (this.constant.value % this.denominator === 0) {
+    if (
+      typeof this.denominator === 'number' &&
+      this.constant.value % this.denominator === 0
+    ) {
       this.constant.value /= this.denominator;
       this.denominator = 1;
+    } else {
+      const variable = this.denominator as Variable;
+      if (this.variables.map((elm) => elm.type).includes(variable.type)) {
+        this.variables = this.variables.filter(
+          (elementVariable) => elementVariable.type !== variable.type
+        );
+        this.denominator = 1;
+      }
     }
   }
 
