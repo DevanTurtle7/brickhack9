@@ -37,6 +37,10 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
     );
   };
 
+  const flipSides = () => {
+    setEquation(equation.flipSides());
+  };
+
   return (
     <div className="equation">
       <div className="left">
@@ -52,7 +56,7 @@ const EquationComponent = ({ equation, setEquation }: Props) => {
         ))}
       </div>
       <div className="middle">
-        <Operator symbol="equals" />
+        <Operator symbol="equals" onClick={flipSides} />
       </div>
       <div className="right">
         {equation.right.map((element, index) => (
