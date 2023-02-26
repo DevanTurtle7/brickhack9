@@ -71,6 +71,15 @@ class Equation {
     return newEquation;
   }
 
+  simplifyElementFraction(index: number, side: Side) {
+    const newEquation = this.getNextEquation();
+    const equation = side === Side.Left ? newEquation.left : newEquation.right;
+
+    equation[index].simplifyFraction();
+
+    return newEquation;
+  }
+
   combine(index1: number, index2: number, left: boolean) {
     const newEquation = this.getNextEquation();
 
