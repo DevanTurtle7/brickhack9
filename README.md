@@ -1,4 +1,4 @@
-#MathFlow
+# MathFlow
 ## Inspiration
 We wanted to redefine the traditional pencil and paper workflow of solving math problems. Paper and pencil is effective, but we wanted a faster and more intuitive way to solve the problems while still providing the same levels of interaction and problem solving that promote learning.
 
